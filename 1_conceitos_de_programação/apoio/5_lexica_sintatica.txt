@@ -1,0 +1,19 @@
+O que é uma linguagem de programação?
+
+É um conjunto de regras léxicas (ortografia) e sintáticas (gramática) para se escrever programas;
+
+# Léxica 
+
+	Diz respeito à correção de palavras "isoladas" (ortografia);
+
+	Cachorro
+	Caxorro (errado);
+
+# Sintática 
+
+	Diz respeito à correção das sentenças (gramática);
+	
+	Exemplo:
+	
+	O cachorro está com fome
+	A cachorro está com fome (errado)

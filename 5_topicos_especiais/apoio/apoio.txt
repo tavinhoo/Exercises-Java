@@ -1,0 +1,87 @@
+AULA 57
+RESTRIÇÕES E CONVENÇÕES PARA NOMES
+
+Restrições para nomes de variáveis
+
+- Não pode começar com dígito: use letra ou _
+- Não usar acentos ou til
+- Não pode ter espaços em branco
+- Sugestão: use nomes que tenham um significado
+
+Convenções:
+
+Camel Case: lastName
+	pacotes
+	atributos
+	métodos
+	variáveis e parâmetros
+
+Pascal Case: ProductService
+	classes
+	
+------------------------------------------------------
+AULA 58
+OPERADORES BITWISE
+
+& - Operação "E" bit a bit
+	F F = F
+	F V = F
+	V F = F
+	V V = V
+ 
+| - Operação "OU" bit a bit
+ 	F F = F
+	F V = V
+	V F = V
+	V V = V
+
+^ - Operação "OU-exclusivo" bit a bit
+	F F = F
+	F V = V
+	V F = V
+	V V = F
+
+Compara cada bit com o respectivo bit paralelo, verificando na tebela verdade, retorna 1 e 0
+
+APLICAÇÃO:
+	VERIFICAR BIT EM REDE
+------------------------------------------------------
+AULA 59
+FUNÇÕES INTERESSANTES PARA STRING
+
+. Formatar: toLowerCase(), toUpperCase(), trim();
+. Recortar: substring(inicio), substring(inicio, fim)
+. Substituir: Replace(char, char), Replace(string, string)
+. Buscar: indexOf, LastIndexOf
+. str.Split(" ")
+------------------------------------------------------
+AULA 61
+FUNÇÕES(SINTAXE)
+
+Representam um processamento que possui um significado
+	. Math.sqrt(double);
+	. Sytem.out.println(string);
+
+Principais vantagens: modularização, delegação e reaproveitamento;
+
+Dados de entrada e saída
+	Funções podem receber dados de entrada(parâmetros ou argumentos);
+	Funções podem ou não retornar uma saída;
+
+Em orientação a objetos, funções em classes recebem o nome de "métodos";
+
+Sintaxe:
+	public static <tipoRetornável> <nomeFuncao>() {
+	comando1;
+	comando2;
+	return <tipo>	
+	}
+
+
+
+
+
+
+
+ 
+

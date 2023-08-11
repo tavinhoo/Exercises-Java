@@ -1,0 +1,6 @@
+O que você precisa para desenvolver um software ?
+
+- Linguagem de programação;
+- IDE;
+- Compilador;
+- Gerador de código ou maquina virtual;

@@ -1,0 +1,27 @@
+=| Algoritmo | 
+
+Sequência finita de instruções para resolver um problema;
+
+=| Lógica | 
+
+A lógica é aplicada para o desenvolvimento de instruções que tem como intuito resolver um problema;
+
+=| Sequência lógica |
+
+São Passos executados para solucionar um problema;
+
+=| Automação | 
+
+Consiste em utilizar maquina(s) para executar o procedimento desejado de forma automática ou semiautomática;
+
+=| Programa ~ Algoritmo |
+
+Programas de computador são algoritmos executados pelo computador(em linhgas gerais);
+
+Conclusão: O computador é uma máquina que automatiza a execução de algoritmos;
+
+=| Diagrama de blocos | 
+
+Diagrama de blocos é uma forma padronizada e eficaz para representar os passos lógicos de um determinado processo;
+
+O diagrama é definido por uma sequência de símbolos com significado bem definido, portanto sua principal função é facilitar a visualização do processamento;

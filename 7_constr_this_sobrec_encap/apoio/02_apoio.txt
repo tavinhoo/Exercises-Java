@@ -1,0 +1,84 @@
+AULA 76
+CONSTRUTORES
+
+- É uma operação especial da classe, que executa no momento da instanciação do objeto.
+
+- Usos comuns:
+	. Iniciar valores dos atributos.
+	. Permitir ou obrigar que o objeto receba dados / dependências no momento
+	de sua instanciação(injeção de dependência).
+	. Se um construtor customizado não for especificado, a classe disponibiliza o construtor 
+	padrão:
+	
+	Product p = new Product();
+
+	. É possível especificar mais de um construtor na mesma classe(sobrecarga)
+
+# PEGANDO O EXEMPLO DE PRODUCT (ARQUIVO)
+
+PROPOSTA DE MELHORIA
+	
+Quando executamos o comando abaixo, instanciamos um produto "produt" com seus atributos "vazios";
+
+produt = new Product();
+
+Entretanto, faz sentido um produto que não tem nome? Faz sentido um produto que não tem preço?
+
+Com o intuito de evitar a existência de produtos sem nome e sem preço, é possível 
+fazer com que seja "obrigatória" a iniciação desses valores?
+---------------------------------------------------------
+AULA 76 
+PALAVRA "THIS"
+
+. É uma referência para o próprio objeto
+
+. Usos comuns
+	. Diferenciar atributos de variáveis locais
+	. Passar o próprio objeto como argumento na chamada de um método ou construtor..
+---------------------------------------------------------
+AULA 77 
+SOBRECARGA
+
+. É um recurso que uma classe possui de oferecer mais de uma operação com o mesmo nome
+porém com diferentes listas de parâmetros.
+
+PROPOSTA DE MELHORIA 
+
+. VAMOS CRIAR UM COSNTRUTOR OPCIONAL, O QUAL RECEBE APENAS NOME E PREÇO DO PRODUTO.
+A QUANTIDADE EM ESTOQUE DESTE NOVO PRODUTO, POR PADRÃO, DEVERÁ ENTÃO SER INICIADA COM
+VALOR ZERO.
+
+. NOTA: É POSSÍVEL TAMBÉM INCLUIR UM CONSTRUTOR PADRÃO.
+---------------------------------------------------------
+AULA 78
+ENCAPSULAMENTO
+
+. É o princípio que consiste em esconder detalhes de implementação de uma classe,
+expondo apenas operações seguras e que mantenham os objetos em um etado consistente.
+
+. Regra de ouro: o objeto deve sempre estar em um estado de consistente, e a própria 
+classe deve garantir isso.
+
+REGRA GERAL BÁSICA
+
+- Um objeto NÃO deve expor nenhum atributo(modificador de acesso private)
+
+- Os atributos devem ser acessados por meio de métodos get e set.
+
+AULA 79
+GERANDO AUTOMATICAMENTE GETTERS AND SETTERS NO ECLIPSE:
+-BOTÃO DIREITO GENERATE GETTERS AND SETTERS;
+---------------------------------------------------------
+AULA 80
+MODIFICADORES DE ACESSO
+
+- PRIVATE - O membro só pode ser acessado na própria classe.
+
+- (nada) : o membro só pode ser acessado nas classes do mesmo pacote.
+
+- protected: o membro só pode ser acessado no mesmo pacote, bem como 
+subclasses de pacote diferentes.
+
+- public: o membro é acessado por todas as classes (ao menos que ele resida
+em um módulo diferente que não exporte o pacote onde ele está)
+

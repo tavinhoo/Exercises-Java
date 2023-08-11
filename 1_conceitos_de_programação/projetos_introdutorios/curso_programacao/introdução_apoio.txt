@@ -1,0 +1,163 @@
+AULA 21
+OPERADORES ARITMÉTICOS
+
+	+
+	-
+	*
+	/
+	% 
+	- Precedência entre operadores
+	- Uso de parêntesis
+	- Exemplos
+---------------------------------------------------------------
+AULA 22
+VARIÁVEIS E TIPOS BÁSICOS DE DADOS
+
+[Variáveis]
+- variável é uma porção de memória (RAM) utilizada para armazenar dados durante a execução dos programas;
+
+Como declarar:
+<tipo> <nome> = <valor inicial>;
+
+ex: 
+int idade = 25;
+double altura = 1.68;
+char sexo = 'F';
+
+- Uma variável possui:
+
+	- Nome (ou identificador)
+	- Tipo
+	- Valor
+	- Endereço -> na memória RAM
+
+[Tipos primitivos ]
+
+- Numéricos inteiros:
+	byte, short, int e long;
+- Numéricos com ponto flutuante:
+	float, double
+- Um caracter unicode:
+	char
+- valor verdade: boolean
+
+- String - cadeira de caracter(palavras ou textos)
+- Padrão camelCase
+---------------------------------------------------------------
+AULA 23
+Três operações básicas de programação
+- Entrada (input)
+- Processamento (process)
+- Saída (output)
+---------------------------------------------------------------
+AULA 24
+
+System.out.print(msg); // não tem quebra de linha
+System.out.println(msg); // tem quebra de linha
+
+---------------------------------------------------------------
+AULA 25
+
+- Casting
+	Conversão explicita de tipos de dados;
+
+- Processamento de dados
+	Comando de atribuição
+	<variável> = <expressão>;
+	" = " - lê-se recebe
+
+Exemplo 1: 
+	int x, y;
+	x = 5;
+	y = 2 * y;
+	Sysout(x);
+	Sysout(y);
+Exemplo 2:
+	int x;
+	double y;
+	x = 5;
+	y = 2 * x;
+	Sysout(x)
+	Sysout(y)
+
+Exemplo 3:
+
+	double b, B, h, area;
+	b = 6.0;
+	B = 8.0;
+	h = 5;
+	area = (b + B) / 2.0 * h;
+
+Exemplo 4:
+	int a, b;
+	double resultado;
+	
+	a = 5;
+	b = 2;
+
+	resultado = a/b; // 2;
+	
+	resultado = (double) a / b; -> " CASTING "
+	
+Exemplo 5:
+	double a;
+	int b;
+
+	a = 5.0;
+	b = a;
+	sysout(b);
+
+	b = (int)a;	
+---------------------------------------------------------------
+AULA 26
+
+	Entrada de dados;
+
+	Usuário -> Programa
+	por meio de dispositivos de ENTRADA
+	também chamada de LEITURA:
+	"O programa está lendo dados."
+
+	Scanner 
+	
+	Para fazer entrada de dados, nós vamos criar um objeto do tipo "Scanner" da seguinte forma;	
+	Scanner sc = new Scanner(System.in);
+	
+	faça sc.close(); quando não precisar mais do objeto sc;
+
+	LEITURA: 
+		int - mySc.nextInt();
+		double mySc.nextDouble();
+		String mySc.nextLine();
+		char mySc.next().charAt(0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

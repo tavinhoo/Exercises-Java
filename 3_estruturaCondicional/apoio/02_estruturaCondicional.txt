@@ -1,0 +1,123 @@
+AULA 33
+Expressões comparativas
+
+expressão =(resultado)=> valor verdade
+ex:
+ 5 > 10   =resultado> Falso
+
+Operador  /      Significado
+>		MAIOR
+<		MENOR
+>=		MAIOR OU IGUAL
+<= 		MENOR OU IGUAL
+== 		IGUAL
+!=		DIFERENTE
+
+	EXEMPLOS
+X = 5 
+
+X > 0	VERDADEIRO
+X == 3 FALSO
+10 <= 30 VERDADEIRO
+X != 2
+
+---------------------------------------------
+AULA 34
+Expressões Lógicas
+
+OPERADOR	/	SIGNIFICADO
+
+&&			E
+||			OU	
+!			NÃO
+
+- E - TODAS AS CONDIÇÕES DEVEM SER VERDADEIRAS
+
+X = 5
+X <= 20  && 	X == 10 	FALSO
+VERDADEIRO	FALSO
+
+
+- OU - AO MENOS UMA DAS CONDIÇÕES DEVEM SER VERDADEIRAS
+
+X = 5
+X == 10 || X <= 20	VERDADEIRO
+FALSO		VERDADEIRO
+
+- NÃO
+
+EX: VOCÊ PODE POSUIR UMA BOLSA DE ESTUDOS SE VOCÊ
+
+NÃO
+	POSSUIR UMA RENDA MAIOR QUE $ 3000,00
+
+
+O OPERADOR NÃO INVERTE A CONDIÇÃO.
+
+X = 5
+
+!(X == 10)	VERDADEIRO
+	!(FALSO)
+
+EX: !(x <= 20 && x == 10)
+	v	    f	
+	      !(f)
+		v
+---------------------------------------------
+AULA 35
+ESTRUTURA SEQUENCIAL IF/ELSE 
+	
+É uma estrutura de controle que permite definir que um certo bloco
+de comandos somente será executado dependendo de uma condição.
+
+		condição
+se verdadeira		   se falsa
+---------------------------------------------
+AULA 38
+SINTAXE OPCIONAL - OPERADORES DE ATRIBUIÇÃO COMULATIVA 
+
++=
+-=
+*=
+/=
+%=
+---------------------------------------------
+AULA 39
+SINTAXE OPCIONAL
+	ESTRUTURA SWITCH-CASE
+
+	Quando se tem várias opções de fluxo a serem tratadas com base no valor de uma
+	variável, ao invés de várias estruturas if-else encadeadas, alguns preferem
+	utilizar a estrutura switch-case;
+
+---------------------------------------------
+AULA 40
+EXPRESSÃO CONDICIONAL TERNÁRIA
+	
+	- Estrutura opcional ao if-else quando se deseja decidir um valor com base em uma condição.
+		
+	Sintaxe: 
+	(condição) ? valor_verdadeiro : valor_falso;
+
+	EX:
+	(2 > 4) ? 50: 70; 70
+
+	(10 != 3) ? "Maria : "Alex; MARIA
+---------------------------------------------
+AULA 41
+
+ESCOPO E INICIALIZAÇÃO
+	ESCOPO: região do programa onde a variável é válida, ou seja, onde ela pode ser usada;
+	
+	Uma variável não pode ser usada se não for inicializada
+	Falaremos de escopo de métodos no CAP 5;
+	
+
+
+
+
+
+
+
+
+

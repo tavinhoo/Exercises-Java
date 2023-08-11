@@ -1,0 +1,242 @@
+AULA 86
+Tipos referência vs. Tipos valor;
+
+- TIPOS REFERÊNCIA =
+
+. Classes são tipos referência
+	Variáveis cujo tipo são classes não devem ser entendendidas
+	como caixas, mas sim como "tentaculos"(ponteiros) para caixas.
+
+Product p1, p2;
+
+as variáveis do tipo Product, estão alocadas em uma área chamada Stack
+
+quando instanciada, cria-se um alocamento no Heap, outro lugar na memória
+
+p1 = new Product("tv", 900, 0);
+
+a partir daí, o espaço alocado na Stack, passa a referenciar um endereço
+no Heap, onde são encontrados a informações de p1
+	
+# E se p2 = p1?
+assim como p1, p2 vai fazer referência(apontar) ao mesmo espaço no heap
+
+. Valor "null"
+	Tipos referência aceitam o valor "null", que indica que a variável aponta 
+	para ninguém.
+
+	p2 = null; - > não está apontando para ninguém;
+
+- TIPOS PRIMITIVOS =
+	Em Java, tipos primitivos são tipos valor. Tipos valor são CAIXAS e não ponteiros.
+	
+	double x, y;
+	
+	x e y serão caixas na stack;
+
+	x = 10;
+	y = x;
+	"y recebe uma cópia de x" - 2 valores independentes de referência;
+
+	tipos primitivos:
+	boolean;
+	char
+	byte
+	short
+	int
+	long	
+	float
+	double
+
+- Tipos primitivos e inicialização 
+
+	int p;
+	sysout(p) - erro
+
+- Valores padrão
+	Quando alocamos (new) qualquer tipo estruturado (classe ou array), são atribuidos
+	valores padrão aos seus elementos.
+	.numeros: 0
+	.boolean: false
+	.char: caractere código 0 
+	.objeto: null
+
+Product p = new Product();
+name: null;
+price: 0;
+quantity: 0;
+
+No final desta aula Nelio fala sobre o Garbage Collector,
+no qual objetos não utilizados são desalocados em um momento 
+proximo pelo garbage collector.
+
+----------------------------------------
+AULA 87
+DESALOCAÇÃO DA MEMÓRIA - GARBAGE COLLECTOR E ESCOPO LOCAL
+
+. Garbage Collector
+	- É um processo que automatiza o gerenciamento de memória de um programa
+	em execução.
+
+	- O garbage collector monitora os objetos alocados dinamicamente pelo programa		
+	(no heap), desalocando aqueles que não estão mais sendo utilizados.
+
+RESUMO
+
+. Objetos alocados dinamicamente, quando não possuem mais referência para eles, serão 
+desalocados pelo garbage Collector
+
+. Variáveis locals são desalocadas imediatamente assim que seu escopo local
+sai de execução.
+
+----------------------------------------
+AULA 88
+VETORES PT-1
+
+- Checklist
+	. Revisão do conceito de vetor
+	. Declaração e instanciação
+	. Manipulação de vetor de elementos tipo valor(primitivos)
+	. Manipulação de vetor de elementos e tipo referência(classe)
+	. Acesso aos elementos 
+	. Propriedade length
+
+- Em programação, "vetor" é o nome dado a arranjos unidimensionais
+
+- Arranjo(array) é uma estrutura de dados:
+	. Homogênea (dados do mesmo tipo).
+	. Ordenada (elementos acessados por meio de posições).
+	. Alocada de uma vez só, em um bloco contíguo de memória.
+
+- VANTAGENS
+	. Acesso imediato aos elementos pela sua posição.
+- DESVATAGENS
+	. Tamanho fixo.
+	. Dificuldade para se realizar inserções e deleções.
+
+Problema exemplo 1
+Fazer um programa para ler um número inteiro N e a altura de N pessoas.
+Armazene as N alturas em um vetor. Em seguida, mostrar a altura média dessas pessoas.
+
+AULA 89
+
+. Exemplo 2
+
+Fazer um programa para ler um numero inteiro N e os dados (nome e preço)
+de N produtos. Armazene os N produtos em um vetor. Em seguida, mostrar o
+preço médio dos produtos.
+----------------------------------------
+AULA 95 
+BOXING, UNBOXING E WRAPPER CLASSES
+
+[Boxing]
+é o processo de conversão de um objeto tipo valor para um objeto tipo referência compatível;
+
+int x = 20;
+
+Object obj = x;
+
+Object é uma classe(a mais generica)
+
+A variável obj é criada no stack e aponta para um objeto com valor 20 no heap;
+
+[Unboxing]
+é o processo de conversão de um objeto tipo referência para um objeto tipo valor compatível;
+
+int x = 20;
+
+Object = x;
+
+int y = (int) obj;
+
+é criada uma variável na stack e essa variável recebe o valor do Object obj;
+
+<<<Wrapper Classes>>>
+
+São classes equivalentes aos tipos primitivos;
+
+Boxing e unboxing é natural na linguagem;
+
+Uso comum: campos de entidades em sistemas de informação(IMPORTANTE!)
+.Pois tipos referência (classes) aceitam valor null e usufruem dos recursos de OO;
+
+----------------------------------------
+AULA 96
+LAÇO FOR EACH
+
+Opcional para percorrer coleções
+
+Sintaxe opcional e simplificada para percorrer coleções
+
+sintaxe:
+
+for(tipo apelido : colecao) {
+	<Comando1>
+	<Comando2>
+}
+----------------------------------------
+AULA 97 - 98 
+LISTAS
+
+- OBS:
+.Conceito de Lista
+.Tipo List - Declaração, intanciação
+.Demo
+.Assuntos que serão citados mas ainda não vi:
+	. Interfaces
+	. Generics
+	. Predicados(lambda)
+
+
+----------LISTA----------
+- É uma estrutura de dados:
+	. Homogênea (dados do mesmo tipo)
+	. Ordenada(elementos acessados por posições)
+	. Inicia vazia, e seus elementos vem sob demanda
+	. Cada elemento ocupa um "Nó" (ou nodo) da lista
+
+- Tipo (interface): List
+- Classes que implementam: ArrayList, LinkedList, etc.
+
+- Vantagens:
+	. Tamanho variável
+	. Facilidade pra se realizar inserções e deleções
+- Desvantagens
+	. Acesso sequencial aos elementos
+
+LISTAS - PARTE 2 
+Operações com listas
+
+. Tamanho da lista: .size();
+. Inserir elemento na lista: add(obj), add(int, obj);
+. Remover elementos da lista: remove(obj), remove(int), removeIf(Predicate)
+
+. Encontrar posição de elemento: indexOf(obj), lastIndexOf(obj)
+
+. Filtrar lista com base em predicado:
+List<Integer> result = list.stream().filter(x -> x > 4).collect(Collectors.toList());
+
+. Encontrar primeira ocorrência com base em predicado:
+Integer result = list.stream().filter(x -> x > 4).findFirst().orElse(null);
+
+obs: Assuntos pendentes 
+	interfaces
+	generics
+	predicado(lambda)
+
+----------------------------------------
+AULA 101 - MATRIZES
+
+. Em programação, "matriz" é o nome dado a arranjos bidimensionais:
+	. Atenção: "vetor de vetores";
+
+. Arranjo (array) é uma estrutura de dados:
+	. Homogênea (dados do mesmo tipo)
+	. Ordenada (elementos acessados por meio de posições)
+	. Alocada de uma vez só, em um bloco contíguo de memória
+
+. Vantagens:
+	. Acesso imediato aos elementos pela sua posição
+. Desvantagens:
+	. Tamanho fixo
+	. Dificuldade para se realizar inserções e deleções

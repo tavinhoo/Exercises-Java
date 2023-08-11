@@ -1,0 +1,77 @@
+AULA 45
+ESTRUTURA REPETITIVA ENQUANTO(WHILE)
+
+É uma estrutura de controle que repete um bloco de comandos
+enquanto uma condição for verdadeira
+
+Quando usar: quando não se sabe previamente a quantidade de 
+repetições que será realizada
+
+
+Sintaxe / regra
+while (condicao) {	
+	comando1;
+	comando2;
+}
+
+
+-------------------------------------------
+AULA 50
+ESTRUTURA REPETITIVA(PARA)(FOR)
+
+É uma estrutura de controle que repete um bloco de comandos
+para um certo intervalo de valores.
+
+
+Quando usar: quando se sabe previamente a quantidade de repetições,
+ou o intervalo de valores;
+
+
+SINTAXE
+
+for(inicio; condicao; incremento) {
+	comando 1
+	comando 2	
+}
+
+inicio - executa somente na primeira vez
+
+condicao - V: executa e volta
+	   F: pula fora
+
+incremento - Executa toda vez depois de voltar
+-------------------------------------------
+AULA 55 
+ESTRUTURA REPETITIVA "FAÇA-ENQUANTO"
+
+Menos utilizada, mas em alguns caso se encaixa melhor ao problema
+
+O bloco de comandos executa pelo menos uma vez, pois a condição é
+verificada no final
+
+Sintaxe/regra:
+	do {
+	comando1;
+	comando2;
+	} while(condicao);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

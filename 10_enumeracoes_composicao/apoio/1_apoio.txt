@@ -1,0 +1,77 @@
+AULA 146 - ENUMERAÇÕES
+Checklist da aula (o que foi abordado)
+
+. Definição / discussão
+. Exemplo: estados de um pedido
+. Conversão de string para enum
+. Representação UML
+
+/ ENUMERAÇÕES 
+
+	. É um tipo especial que serve para especificar de forma literal um conjunto de constantes relacionadas.
+
+	. Palavra chave em java: enum.
+
+	. Vantagem: melhor semântica, cóigo mais legível e auxiliado pelo compilador.
+
+/ EXEMPLO: Você tem um sistema de comércio e os pedidos feitos passam pelas seguintes etapas:
+
+Ciclo de vida de um pedido:
+
+=> PendingPayment => Processing => Shipped => Delivered
+
+"EXEMPLO GRÁFICO DA NOTAÇÃO UML"
+
+<<enum>>
+OrderStatus
+- PENDING_PAYMENT : int = 0
+- PROCESSING : int = 1
+- SHIPPED : int = 2
+- DELIVERED : int = 3
+------------------------------
+AULA 147 - VAMOS FALAR UM POUCO SOBRE DESIGN
+
+- Categoria de classes 
+
+. Em um sistema orientado a objetos, de modo geral "tudo" é objeto.
+
+.  Por questão de design tais como organização, flexibilidade, reuso, delegação, etc., há várias categorias de classes
+
+ex: Views, Controllers, Entities, Services, Repositories
+
+------------------------------
+AULA 148 - COMPOSIÇÃO
+
+- Composição
+
+. É um tipo de associação que permite que um objeto conteha outro
+
+. Relação "tem-um" ou "tem-vários"
+
+. Vantagens
+	Organização: divisão de responsabilidades
+	Coesão 
+	Flexibilidade
+	Reuso
+
+. Nota: Embora o símbolo UML para composição (todo-parte) seja o diamante preto, neste contexto estamos chamando de composição qualquer associação tipo "tem-um" e "tem-vários".
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
