@@ -1,0 +1,111 @@
+#AULA222-224
+
+Em Java, uma interface é um tipo de construção que define um contrato para classes que 
+a implementam. Uma interface é semelhante a uma classe abstrata, mas difere na medida em 
+que só contém métodos abstratos (métodos sem implementação) e constantes (variáveis finais). 
+Ela fornece um meio de especificar um conjunto de métodos que uma classe deve implementar 
+sem definir a implementação específica desses métodos.
+
+#AULA225-227
+
+- No exercício exemplo, o conceito de interface é inserido quando: Existe uma class BrazilTaxService
+que diz respeito à lógica por trás dos impostos sobre o valor incial do aluguel do veículo, sendo usada
+em outros serviços e classes e instanciada como BrazilTaxService. O problema surge quando em determinado momento
+se decide trocar essa lógica, como exemplo (UsaTaxService), assim teria de refatorar em todos os campos
+onde BrazilTaxService foi instanciado. Com a criação da interface TaxService, nos serviços e entidades é ela 
+quem é instanciada, e somente no programa principal se é instanciada a tax escolhida e passada como argumento
+para execução do programa;
+
+Upcasting => TaxService taxEscolhida = new "taxQualquer";
+
+#AULA228
+
+- Inversão de controle e injeção de dependência
+
+    . Injeção de dependência foi o que foi feito no programa principal, onde BrazilTaxService foi passado
+    como argumento no construtor, e em RentalService, o que se espera no argumento é uma classe que implementa
+    TaxService;
+
+    •Inversão de controle
+
+        Padrão de desenvolvimento que consiste em retirar da classe a
+        responsabilidade deinstanciar suas dependências.
+
+    •Injeção de dependência
+
+    É uma forma de realizar a inversão de controle: um componente externo
+    instancia a dependência, que é então injetada no objeto "pai". Pode ser
+    implementada de várias formas:
+        • Construtor
+        • Classedeinstanciação(builder/factory)
+        • Container/framework
+
+#AULA232
+- Herdar vs Cumprir contrato
+    Aspectos em comum entre herança e interfaces:
+        •Relação é-um
+        •Generalização/especialização
+        •Polimorfismo
+
+- Diferença fundamental   
+
+    . Herança => reuso
+    (você especifica algo na classe pai como por exemplo String cor, e na classe filha
+    não vai precisar codar esse atributo de novo)
+
+    . Interface => contrato a ser cumprido
+    (se a interface tem a operação retornarValorTotal, todas a classes que implementam 
+    a interface, deverão ter também, ou seja, terá de ser codado)
+
+#AULA233
+- Herança múltipla e o problema do diamante
+    . Supondo que exista uma classe abstrata A, em que B e C são subclasses de A:
+      B e C precisam especificar um método genérico da classe A. Então surge a subclasse 
+      D que "herda" B e C, ou seja, o problema está no momento de implementação do método
+      D pode executar o método de B ou de C.
+
+      Em java isso não é permitido
+
+      ..... extends B extends C {não pode}
+
+      Para solucionar isso, são criadas duas interfaces substituindo a classe B e C
+      e então, a classe D pode implementar as duas, cumprindo o contrato de especificar
+      os dois métodos genéricos das classes B e C;
+
+    => Projeto Exemplo:
+                                    Device
+                            Printer        Scanner
+                                  ComboDevice
+
+#AULA234
+    - Interface Comparable
+    À princípio:    public interface Comparable<T> {int compareTo(T o);}   
+    Ela basicamente compara objetos, com a operação descrita acima, 
+    ela faz a comparação de objetos(atributos de objetos - o que você quiser)
+    objeto.compareTo(objetoQualquer) ou atributoQualquer
+    se o objeto for menor que objetoQualquer, ele retorna -1
+    se for igual 0
+    se for maior 1
+    o método serve como um critério quando Collections.sort() é usado
+    define a forma como vai ser organizada os objetos em questão.
+
+#AULA235
+
+- Default methods
+    A partir do Java 8, interfaces podem conter métodos concretos.
+    • A intenção básica é prover implementação padrão para métodos, de modo a evitar:
+    • 1) repetição de implementação em toda classe que implemente a interface
+    • 2) a necessidade de se criar classes abstratas para prover reuso da implementação 
+    •Outras vantagens:
+    • Manter a retrocompatibilidadecom sistemas existentes
+    • Permitir que "interfaces funcionais" (que devem conter apenas um método) possam prover outras 
+    operações padrão reutilizáveis
+
+    Considerações importantes
+    •Sim: agora as interfaces podem prover reuso
+    •Sim: agora temos uma forma de herança múltipla
+    • Mas o compilador reclama se houver mais de um método com a mesma 
+    assinatura, obrigando a sobrescreve-lo
+    •Interfaces ainda são bem diferentes de classes abstratas. Interfaces 
+    não possuem recursos tais como construtores e atributos.
+    

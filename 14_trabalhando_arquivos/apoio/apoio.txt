@@ -1,0 +1,75 @@
+#AULA214
+
+• File - Representação abstrata de um arquivo e seu caminho
+• Scanner - Leitor de texto
+• IOException (Exception)
+
+
+Introdução da class File
+    - Usada para identificar o arquivo 
+    - Possibilita funções a partir do scanner
+        - new Scaner(File);
+
+Exception IOException
+    - lançada quando ocorre algum problema durante a 
+    entrada ou saída de dados. Isso pode incluir operações de leitura 
+    ou gravação em arquivos, streams, sockets, entre outros.
+
+#AULA215
+
+• FileReader (stream de leitura de caracteres a partir de arquivos)
+
+• BufferedReader (mais rápido)
+
+FileReader:
+Imagine que você está lendo um livro palavra por palavra. O FileReader seria como ler o livro
+uma palavra de cada vez. Se o livro for pequeno, isso pode funcionar bem, mas se for grande, 
+pode demorar um pouco.
+
+BufferedReader:
+Agora, imagine que você tem um ajudante (um buffer) que lê o livro para você, mas em pedaços 
+maiores, como parágrafos inteiros. Este ajudante torna as coisas mais eficientes, especialmente 
+quando o livro é grande. O BufferedReader é como esse ajudante que lê e entrega pedaços maiores 
+de informação de uma vez.
+
+Então, em termos simples:
+
+FileReader lê uma pequena parte do arquivo de cada vez, sendo mais adequado para arquivos pequenos.
+BufferedReader lê blocos maiores do arquivo de uma vez, tornando-o mais eficiente para arquivos grandes.
+No mundo real, você frequentemente os verá juntos, onde o FileReader é usado para ler o arquivo e o 
+BufferedReader ajuda a tornar a leitura mais rápida e eficiente, especialmente ao lidar com arquivos grandes.
+
+#AULA216
+
+Bloco try-with-resources
+• É um bloco try que declara um ou mais recursos, e garante que esses
+recursos serão fechados ao final do bloco
+• Disponível no Java 7 em diante
+
+#AULA217
+
+• FileWriter (stream de escrita de caracteres em de arquivos)
+     Cria/recria o arquivo: new FileWriter(path)
+     Acrescenta ao arquivo existente: new FileWriter(path, true)
+
+• BufferedWriter (mais rápido)
+
+#AULA218
+Manipulando pastas com File
+
+1° Indica o Path(caminho da pasta desejada)
+2° Voce cria um vetor que "guardará" todas 
+as pastas ou arquivos, diferenciados por: 
+File[] folders = path.listFiles(File::isDirectory);
+File[] files = path.listFiles(File::isFile);
+
+boolean success = new File(strPath + "\\subdir").mkdir();
+System.out.println("Directory created successfully: " + success);
+
+
+#AULA219
+Informações do caminho da pasta
+
+System.out.println("getPath: " + path.getPath());
+System.out.println("getParent: " + path.getParent());
+System.out.println("getName: " + path.getName());

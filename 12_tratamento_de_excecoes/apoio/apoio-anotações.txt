@@ -1,0 +1,50 @@
+#AULA 170
+Estrutura try-catch 
+
+- Try contém o código que pode acarretar um excessão.
+
+- Cacth faz a captura do erro e efetua alguma lógica.
+
+#AULA 172
+- Finally executa independente de ter ocorrido ou não uma exceção.
+Exemplos: encerrar algo(fechar um arquivo, conexão de db,
+ou outro recurso relacionado a encerramento)
+
+#AULA173
+Criando exceções personalizadas
+
+#AULA174
+
+- Solução muito ruim
+Nessa aula ele implementa testes que validam a entrada de dados a partir de ifs e 
+eles no programa principal.
+(Válida a lógica em main())
+
+#AULA175
+
+- Solução ruim(método updateDates retorna string)
+Implementa a lógica que valida que o update da reserva, seja 
+feita em datas futuras. A lógica agora está no método updateDates
+
+#AULA176
+
+- Solução boa
+
+..
+..
+.
+.
+.
+.
+.
+.
+.
+
+
+Quando criada a class DomainException, ela é uma extensão de Exeption ou RuntimeException
+
+(tratar/propagar)
+
+- Exception: O compilador te obriga a tratar.
+
+- RuntimeException: É um tipo de exception que o compilador não obriga voce a tratar.

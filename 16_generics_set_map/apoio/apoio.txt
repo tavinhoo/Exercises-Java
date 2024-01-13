@@ -1,0 +1,340 @@
+#AULA238 
+
+- Generics
+
+    • Generics permitem que classes, interfaces e métodos possam ser parametrizados por tipo. Seus benefícios são:
+    • Reuso (pode usar a classe para a entrada de diversos  tipos de dados, não a limitando a um unico tipo)
+    • Type safety (Garantia de que tipos serão devidamente armazenados na variavel do seu correpondente tipo)
+    • Performance
+
+    • Uso comum: coleções
+    
+    List<String> list = new ArrayList<>();
+    list.add("Maria");
+    String name = list.get(0);
+
+    - Para tornar a entrada de dados mais flexível, deve-se usar Generics  
+    public class suaClasse<T> {}  -> "T", mas poderia ser qualquer nome.(Convenção)
+    A partir daí: atributos e métodos poderão trabalhar com o tipo genérico T.
+
+#AULA239
+
+- Genéricos delimitados
+    ->>>> OBS: A classe CalculatioService e sua respectiva sintaxe, se dá pela parametrização somente do método max, por isso
+    não se faz CalculationService<T> e sim a sintaxe inserida em:
+
+            1. public static Integer max(List<Integer> list) {...}
+            2. public static T max(List<T> list) {...} "erro na parametrização"
+            3. public static <T> T max(List<T> list) {...} "Especifica que: vai trabalhar com algum elemento <T>"
+            -> Aqui aparece que o método compareTo não está definido para o tipo T
+            E então: 
+            4. public static <T extends Comprable<T>> T max(List<T> list) {...}
+
+            IMPORTANTE:  A função vai trabalhar com qualquer tipo T, desde que T seja qualquer subtipo de Comparable<T>
+
+
+#AULA240
+
+- Tipos Curinga
+        -> Relembrando o conceito de supertipo.
+            Você pode criar uma função para receber um building type qualquer, parametrizando
+            o argumento como Object obj por exemplo.
+
+            A explicação é de que se trata de um supertipo para qualquer lista(TIPO CORINGA)
+            Não se pode fazer:
+
+            >>>>[CHATGPT]<<<<
+
+            List<Object> listObj = new ArrayList<>();
+            List<Integer> listInts = new ArrayList<>();
+
+            listObj = listInts; // Isso não é permitido, mas suponha que fosse
+
+            listObj.add("Hello"); // Agora você adicionou uma String a uma lista que deveria conter apenas Integers
+            Integer number = listInts.get(0); // Ocorreria um erro em tempo de execução, pois "Hello" não é um Integer
+
+
+            Generics com <T> (Tipo Parametrizado):
+
+            Exemplo: List<T>
+            Você especifica um tipo específico (T) ao criar uma classe ou método.
+            Proporciona segurança de tipo durante a compilação.
+            Você pode acessar métodos e propriedades específicos desse tipo.
+            Útil quando você precisa de detalhes específicos do tipo.
+
+            List<Integer> listaDeInteiros = new ArrayList<>();
+
+            Tipo Coringa com <?> (Wildcard):
+
+            Exemplo: List<?>
+            Você não se preocupa com o tipo exato, aceita qualquer tipo.
+            Menos rígido em termos de tipos, mais flexível.
+            Não permite adição de elementos (exceto null) sem casting.
+            Útil quando você está mais interessado na estrutura da lista do que nos tipos específicos.
+
+            List<?> listaQualquer = new ArrayList<>();
+
+            Em resumo, <T> é para quando você quer saber e usar um tipo específico com segurança de tipo, enquanto <?> 
+            (wildcard) é para quando você só se importa com a estrutura da coleção e não precisa saber os tipos exatos. 
+            Escolha entre eles com base na sua necessidade de precisão e flexibilidade.
+
+            >>> Curiosidade:
+
+            public static void printList(List<?> list) {
+                for (Object obj : list) {
+                    System.out.println(obj);
+            }
+                System.out.println("Execução com CORINGA");
+            }
+
+            public static <T extends Object> void printList2(List<T> list) {
+                for (Object obj : list) {
+                    System.out.println(obj);
+            }
+                System.out.println("Execução com PARAMETRIZAÇÃO");
+            }
+
+            As duas funcionam por igual.
+
+#AULA241
+
+    - Coringas delimitados(bounded wildcards)
+
+    PROBLEMA 1
+
+            O problema se trata de uma interface Shape, que é implementada em Rectangle e Circle. O intuito do programa
+            é somar as áreas de objetos dentro de uma lista shape.
+
+            public static double totalArea(List<Shape> list) {....}
+
+            Entretanto se deseja flexibilizar a função, já que ela List<Shape> não é um supertipo de List<Rectangle>/<Circle>
+
+            De acordo com os tipos coringa, a solução seria:
+
+            public static double totalArea(List<?> list) {....} //erro: abre muitas possibilidades de entrada
+            a função possui calculos, definido com o tipo coringa, até uma lista de strings poderia ser processada
+
+            Então é preciso especificar mais quais dados podem ser processados:
+
+            public static double totalArea(List<? extends Shape> list) [...]
+
+    PROBLEMA 2
+
+            Criar um método que copia os elementos de uma lista para uma outra lista que pode ser mais genérica que a primeira.
+
+            Princípio get/put - covariância
+
+            - Covariância (CORINGA LIMITADO SUPERIORMENTE)
+
+            <? extends T> - Este tipo de coringa permite que o tipo seja de 'T'
+                            ou qualquer subtipo de 'T', descendo a hierarquia.
+
+                            É utilizado quando você precisa apenas ler elementos    
+                            da estrutura de dados. Sem se importar exatamente com  
+                            tipo especifico.
+
+                            List<? extends Number> listaNumerica = new ArrayList<>();
+                            Number numero = listaNumerica.get(0); // Leitura permitida
+
+            - Contravariância (CORINGA LIMITADO INFERIORMENTE)
+
+            <? super T> - Este tipo de coringa permite que o tipo seja 'T' ou qualquer
+                          tipo que seja um supertipo de 'T'.
+                          É usado quando você precisa adicionar elementos à estrutura de 
+                          dados e não se importa com o tipo exato.
+
+                          List<? super Integer> listaCuringa = new ArrayList<>();
+                          listaCuringa.add(42); // Adição permitida
+
+#AULA242
+
+- HashCode e equals.
+
+    São operações que tem como função a comparação entre duas entidades.
+
+    Tipos comuns (String, Date, Integer, Double, etc.) já possuem
+    implementação para essas operações. Classes personalizadas
+    precisam sobrepô-las.
+
+    - Equals
+        Método que compara se o objeto é igual a outro, retornando 
+        true ou false
+        equals: lento, resposta 100%
+        object1.equals(object2) -> true/false;
+
+    - HashCode
+        . Usado para grandes listas onde se sabe que os itens não irão se repetir
+            (apresentarão igualdade)
+
+        . rápido, porém resposta positiva não é 100%
+            object1.hashcode(); -> retorna um inteiro de acordo
+        
+        . Método que retorna um número inteiro representando um código gerado 
+            a partir das informações do objeto
+
+        . Se o hashcode de dois objetos for diferente, então os dois objetos
+        são diferentes.
+
+DICA:
+        Na possibilidade de dois objetos serem "iguais" a partir da colisão 
+        no hashcode, o proximo passo é testar essa igualdade pelo equals.
+
+        System.out.println(c1 == c2);// são objetos iguais(instanciados) -> false
+
+        Isso acontece porque o == compara a referencia de memória, e não o conteúdo.
+        Com exceção de String;
+
+        String s1 = "test";
+        String s2 = "test";
+
+        System.out.println(s1 == s2); => TRUE, mas por que?
+        ele trabalha com o conteúdo literal, mas se voce fizer:
+
+        String s1 = new String("test");
+        String s2 = new String("test");
+
+        System.out.println(s1 == s2); -> FALSE
+
+#AULA243 
+
+    - Set
+
+    Representa um conjunto de elementos (similar ao da Álgebra)
+        • Não admite repetições
+        • Elementos não possuem posição
+        • Acesso, inserção e remoção de elementos são rápidos
+        • Oferece operações eficientes de conjunto: interseção, união, diferença.
+
+        . Set refere-se a uma estrutura de dados que representa uma coleção de elementos únicos
+        , ou seja, cada elemento só aparece uma vez na coleção.
+
+        => As implementações de Set são: 
+            
+            -> HashSet: Implementa um conjunto usando uma tabela de dispersão. 
+            Oferece acesso rápido aos elementos, mas não garante nenhuma ordem específica 
+            dos elementos.
+
+            Set<String> hashSet = new HashSet<>();
+
+            -> TreeSet: Implementa um conjunto usando uma árvore balanceada (geralmente uma árvore 
+            vermelha-preta). Os elementos são armazenados em ordem ordenada, o que facilita a iteração 
+            em ordem crescente
+
+            Set<String> treeSet = new TreeSet<>();
+
+            -> LinkedHashSet: Implementa um conjunto usando uma tabela de dispersão, mas mantém a ordem de 
+            inserção dos elementos. Isso significa que os elementos são iterados na ordem em que foram 
+            adicionados.
+
+            Set<String> linkedHashSet = new LinkedHashSet<>();
+
+
+        -> REPRESENTAÇÃO DE COMO SET É SEMELHANTE AOS CONJUNTOS DA ALGEBRA: 
+        
+            Set<Integer> a = new TreeSet<>(Arrays.asList(0, 2, 4, 5, 6, 8, 10));
+            Set<Integer> b = new TreeSet<>(Arrays.asList(5, 6, 7, 8, 9, 10));
+
+            // union
+            Set<Integer> c = new TreeSet<>(a);
+            c.addAll(b);
+            System.out.println(c);
+
+            // intersection
+            Set<Integer> d = new TreeSet<>(a);
+            d.retainAll(b);
+            System.out.println(d);
+
+            // difference
+            Set<Integer> e = new TreeSet<>(a);
+            e.removeAll(b);
+            System.out.println(e);
+
+#AULA244
+
+    - Como SET testa igualdade?
+
+        . Se o hashCode e equals estiverem implementados:
+            Primeiro hashCode. Se der igual, usa equals pra confirmar.
+
+            . Lembrar de: wrapper types ja possuem equals e hashCode.
+
+        . Se o hashCode e equals NÃO estiverem implementados:
+            . Compara as referências(ponteiros) dos objetos.
+    
+#AULA245
+
+    - Como o TreeSet compara os elementos? 
+        A comparação é feita pelo compareTo da interface Comparable<Object>.
+
+        E também pelo Comparator, que é passado no argumento da implementação
+        Comparator.reverseOrder()
+
+#AULA248
+
+    - Map<K,V> - É uma coleção de pares CHAVE / VALOR
+
+        . Não admite repetições de objeto CHAVE
+        . Os elementos são indexados pelo objeto chave (não possuem posição)
+        . Acesso, inserção e remoção de elementos são rápidos.
+
+    ==>> USO COMUM: cookies, local storage, qualquer modelo chave-VALOR
+    
+    - Principais implementações:
+
+       • HashMap - mais rápido (operações O(1) em tabela hash) e não ordenado
+       • TreeMap - mais lento (operações O(log(n)) em árvore rubro-negra) e ordenado pelo compareTo do objeto (ou Comparator)
+       • LinkedHashMap - velocidade intermediária e elementos na ordem em que são adicionados
+
+    ==>> Alguns métodos importantes:
+
+            . put(key, value), remove(key), containsKey(key), get(key)
+                - baseado em equals e hashCode 
+                - Se equals e hashCode não existir, é usada comparação de ponteiros
+
+            . clear(), size()
+
+            . keySet() - retorna um Set<K>
+            . values() - retorna um collection<V>
+    
+
+        Map<K,V> - 
+                K = Tipo da chave.
+                V = Tipo do valor.
+
+                Map<String, String> cookies = new TreeMap<>();
+
+                cookies.put("userName", "Maria");
+                cookies.put("email", "maria@gmail.com");
+                cookies.put("phone", "99711122");
+                
+                cookies.remove("email");
+
+                 System.out.println("ALL COOKIES: ");
+                  for(String key : cookies.keySet()) {
+                     System.out.println(key + ": " + cookies.get(key));
+                   } 
+
+
+    # Organizando ideias: 
+
+            Map<Product, Double> stock = new HashMap<>();
+
+            Product p1 = new Product("Tv", 900.0);
+            Product p2 = new Product("Notebook", 1200.0);
+            Product p3 = new Product("Tablet", 400.0);
+
+            stock.put(p1, 10000.0);
+            tock.put(p2, 20000.0);
+            tock.put(p3, 15000.0);
+
+            Product ps = new Product("Tv", 900.0);
+
+            System.out.println("Contains 'ps' key: " + stock.containsKey(ps))
+
+            - Adicionar produto
+                stock.put(novoProduto, 5000.00);
+            
+            - Remover produto
+                stock.remove(novoProduto);
+            
+

@@ -1,2 +1,4 @@
 .metatada/
 .plugins/
+.pdf
+*.pdf

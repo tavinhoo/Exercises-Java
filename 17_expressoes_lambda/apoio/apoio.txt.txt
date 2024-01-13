@@ -1,0 +1,290 @@
+#AULA252 
+
+- Uma expericência com Comparator;
+    (Interface funcional do java8)
+
+    Problema exemplo:
+    Suponha uma classe Product com os atributos name e price.
+
+    • Podemos implementar a comparação de produtos por meio da implementação da interface Comparable<Product>
+
+    • Entretanto, desta forma nossa classe não fica fechada para alteração: se o critério de comparação mudar, 
+    precisaremos alterar a classe Product.
+    
+
+    Comparator
+    
+    - Depois de inserir os itens na lista de Products, a lista é passada como argumento em:
+
+    Collections.sort(list); // Product precisa implementar o Comparable, caso contrário não funcionará.
+    
+    ->>>>>>> Entretanto, desta forma nossa classe não fica fechada para alteração: se o critério de comparação mudar, 
+             precisaremos alterar a classe Product.
+
+            Podemos então usar o default method "sort" da interface List:
+            default void sort(Comparator<? super E> c)
+
+            // Nesse momento, exclui-se o Comparable de Product + compareTo
+
+            list.sort(//Aqui vai um comparator.);
+
+            public class MyComparator implements Comparator<Product> {
+
+                @Override
+                public int compare(Product o1, Product o2) {
+                    return o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase());
+                }
+            }
+
+            // Voltando para:
+
+            @Step1 - Comparator objeto de classe separada
+
+            list.sort(new MyComparator());
+
+            @Step2 - Comparator objeto de classe anônima
+
+            - Ignora classe MyComparator;
+
+            No programa principal:
+
+            Comparator<Product> comp = new Comparator<Product>() {
+                @Override
+                public int compare(Product o1, Product o2) {
+                    return o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase());
+                }
+            };
+
+            list.sort(comp);
+
+
+           @Step3 - Comparator objeto de expressão lambda com chaves
+
+            Comparator<Product> comp = (o1, o2) -> {
+                return o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase());
+            };
+
+           @Step4 - Comparator objeto de expressão lambda sem chaves
+
+            Comparator<Product> comp = (o1, o2) -> o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase());
+
+           @Step5 - Comparator expressão lambda "direto no argumento"
+
+            list.sort((o1, o2) -> o1.getName().toUpperCase().compareTo(o2.getName().toUpperCase()));
+
+#AULA253
+
+    - Programação funcional e cálculo lambda.
+
+    O que é paradigma funcional?
+
+    >>>CHATGPT
+
+        O paradigma funcional é um estilo de programação que trata a computação como uma avaliação de 
+        funções matemáticas e evita a mudança de estado e a mutabilidade de dados. Em programação funcional, 
+        as funções são tratadas como cidadãos de primeira classe, o que significa que podem ser passadas como argumentos
+         para outras funções, retornadas como valores de outras funções e armazenadas em estruturas de dados.
+
+        Principais características do paradigma funcional incluem:
+
+        Imutabilidade: Os dados são tratados como imutáveis, o que significa que uma vez que um valor é atribuído a uma 
+        variável, ele não pode ser alterado. As funções em programação funcional não devem causar efeitos colaterais.
+
+        Funções Puras: As funções em programação funcional são consideradas puras quando não dependem de estados externos 
+        e produzem o mesmo resultado para os mesmos inputs, independentemente do contexto.
+
+        Recursividade: A recursividade é frequentemente utilizada em programação funcional, uma vez que não envolve o 
+        uso de loops tradicionais. A recursão é uma técnica onde uma função chama a si mesma para resolver um problema menor.
+
+        Expressões Lambda: Funções anônimas, muitas vezes chamadas de expressões lambda, são comuns em programação funcional. 
+        Elas são usadas para criar funções de forma concisa.
+
+        Programação Declarativa: Em vez de se concentrar em como alcançar um resultado específico, a programação funcional 
+        se concentra em declarar o que deve ser feito. Isso contrasta com a programação imperativa, que se concentra em como realizar uma tarefa.
+
+        Alto Nível de Abstração: A programação funcional muitas vezes utiliza abstrações de alto nível para facilitar o 
+        desenvolvimento e a compreensão do código
+                
+
+    # O que é transparência referencial?
+
+    Uma função possui transparência referencial se seu resultado for sempre o mesmo para os mesmos dados de entrada.
+    Beneficios: simplicidade e previsibilidade
+
+    Exemplo: Quando a função acessa dados externos a função, ela perde a transparencia referencial, pois quando alterado o dado externo
+    diferentes resultados irão surgir, devido a dependencia da função com esse dado externo.
+
+    # Funções são objetos de primeira ordem(ou primeira classe)
+
+    Isso significa que funções podem, por exemplo, serem passadas como parâmetros de métodos, bem como
+    retornadas como resultado de métodos.
+
+    Utilizamos aqui "methods references"
+
+    Operador :: 
+
+    Sintaxe:  Classe::método
+
+    # Expressividade / código conciso
+
+    Integer sum = 0; // forma tradicional com exigencia de mais linhas
+
+    for(Integer x : list) {
+        sum+= x;
+    }
+
+    vs 
+
+    Integer sum = list.stream().reduce(0, Integer::sum); --> Mais simples e reduzido
+
+    # Tipagem dinâmica / inferência de tipos
+
+    O que é inferência de tipos?
+    
+    A inferência de tipos é um conceito em programação no qual o compilador deduz 
+    automaticamente o tipo de uma variável com base no contexto em que ela é utilizada.
+    Em outras palavras, o programador não precisa explicitamente declarar o tipo de uma variável,
+    pois o compilador pode inferir essa informação a partir do código.
+
+    A inferência de tipos é frequentemente associada a linguagens de programação que suportam tipagem 
+    estática, onde os tipos das variáveis são verificados em tempo de compilação. Ela proporciona benefícios, 
+    como redução da verbosidade do código, maior legibilidade e, em alguns casos, maior flexibilidade.
+    
+
+    ---> Conclusão
+
+        O que são "expressões lambda"?
+            Em programação funcional, expressãop lambda corresponde a uma função anônima de primeira classe.
+
+            E o que quer dizer "primeira classe"?
+
+            Em programação, quando se fala em "primeira ordem" ou "função de primeira ordem", geralmente está se 
+            referindo à capacidade de tratar funções como valores. Isso significa que você pode passar funções como 
+            argumentos para outras funções, retornar funções como resultados de outras funções e atribuir funções a variáveis.
+
+            Em linguagens como Java, a ideia de funções de primeira ordem é expressa através do suporte a 
+            funções anônimas (também conhecidas como lambdas) e interfaces funcionais. A partir do Java 8, 
+            a linguagem introduziu expressões lambda, que são uma forma concisa de expressar implementações de interfaces funcionais.
+            
+            Exemplo de função anônima:
+
+            list.sort((p1,p2) -> p1.getPrice().compareTo(p2.getPrice()));
+
+            Não confundir:
+
+            Cálculo lambda = Formalismo matemático base da programação funcional.
+            Expressão lambda = função anônima de primeira classe.
+
+#AULA254
+
+    - Interface funcional
+
+        É uma interface que possui um único método abstrato. Suas implementações
+        serão tratadas como expressões lambda;
+
+        public class MyComparator implements Comparator<Product> {
+            @Override
+            public int compare(Product p1, Product p2) {
+            return p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase());
+            }
+        }
+
+        -----
+
+        public static void main(String[] args) {
+            (...)
+            list.sort(new MyComparator());
+        }
+        
+#AULA255
+
+    - Predicated (exemplo com removeIf)
+
+        public interface Predicate<T> {
+            boolean test (T t);
+        }
+    
+    Problema: Fazer um programa que, a partir de uma lista de produtos, remova da
+              lista somente aqueles cujo preço mínimo seja 100.
+
+
+    1° Método: Implementação da interface
+
+    Classe ProductPredicate implementa Predicate<Product> e o método compare retornando boolean;
+
+    public class MyComparator implements Comparator<Product> {
+
+        @Override
+        public int compare(Product p1, Product p2) {
+            return p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase());
+        }
+    }
+
+    list.removeIf(new ProductPredicate());
+
+    2° Método: Reference method com método estático
+
+    Método estático criado na própria classe Product
+
+    public static boolean staticProductPredicate(Product p) {
+        return p.getPrice() >= 100.00;
+    }
+
+    list.removeIf(Product::staticProductPredicate);
+
+
+    3° Método: Reference Method com método não estático
+
+    public boolean nonStaticProductPredicate(Product p) {
+        return p.getPrice() >= 100.00;
+    }
+
+    4° Método: Uma variável do tipo Predicate<Product> armazenando a expressão lambda 
+    e passada como argumetno no list.sort(pred)
+
+    Predicate<Product> pred = ((p) -> p.getPrice() >= 100.0);
+
+    list.removeIf(pred);
+
+    5° Método: Expressão lambda Inline
+
+#AULA256
+
+    - Consumer(exemplo com forEahch)
+
+    public interface Consumer<T> {
+        void accept (T t);
+    }
+
+    Problema: 
+    Fazer um programa que, a partir de uma lista de produtos, aumente o
+    preço dos produtos em 10%.
+
+    Nelio usa list.forEach(argumento);
+
+    [1]Implementação da interface
+
+    public class MyConsumer implements Consumer<Product>(){}
+    
+    [2] Reference method com método estático
+
+    list.forEach(Product::staticIncrease);
+    public static void staticIncrease(Product p) {
+        p.setPrice(p.getPrice() * 1.10);
+    }
+
+    [3] Reference method com método não estático
+
+    list.forEach(Product::staticIncrease);
+    public void nonStaticIncrease() {
+        price += price * 0.1;
+    }
+    
+    [4] Expressão lambda declarada
+    
+    Consumer<Product> consumer = (p) -> p.setPrice(p.getPrice() * 1.10);
+    list.forEach(consumer);
+
+    [5] Expressão lambda inline
+
+    list.forEach(p -> p.setPrice(p.getPrice() * 1.10));
