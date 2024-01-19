@@ -32,12 +32,20 @@ public class Product {
         return price >= 100.00;
     }
 
-    public static void staticIncrease(Product p) {
+    public static void staticProductUpdate(Product p) {
         p.setPrice(p.getPrice() * 1.10);
     }
 
-    public void nonStaticIncrease() {
+    public void nonStaticProductUpdate() {
         price += price * 0.1;
+    }
+
+    public static String staticUpperCaseName(Product p) {
+        return p.getName().toUpperCase();
+    }
+
+    public String nonStaticUpperCaseName() {
+        return name.toUpperCase();
     }
 
     @Override

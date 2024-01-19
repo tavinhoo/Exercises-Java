@@ -288,3 +288,171 @@
     [5] Expressão lambda inline
 
     list.forEach(p -> p.setPrice(p.getPrice() * 1.10));
+
+#AULA257
+
+    - Function(exemplo com map) --- NÃO CONFUNDIR COM ESTRUTURA DE DADOS MAP>>>>>>
+
+    public interface Function<T, R> {
+        R apply (T t);
+    }
+
+    Nota sobre a função map:
+    
+        •A função "map" (não confunda com a estrutura de dados Map) é uma 
+        função que aplica uma função a todos elementos de uma stream.
+
+        •Conversões:
+        • List para stream: .stream()
+        • Stream para List: .collect(Collectors.toList())
+
+    Problema: 
+    Fazer um programa que, a partir de uma lista de produtos, gere uma
+    nova lista contendo os nomes dos produtos em caixa alta
+
+        [1] - Implementação da interface
+
+            @Override
+            public String apply(Product t) {
+                return t.getName().toLowerCase();
+            }
+
+        list.stream().map(new UpperCaseName()).collect(Collectors.toList());
+
+        [2] - Reference method com método estático
+
+         public static String staticUpperCaseName(Product p) {
+            return p.getName().toUpperCase();
+        }
+
+        [3] - Reference method com método não estático
+
+          public String nonStaticUpperCaseName() {
+            return name.toUpperCase();
+        }
+
+        [4] - Expressão lambda declarada
+
+        Function<Product, String> func = (p) -> p.getName().toUpperCase();
+        List<String> names = list.stream().map(func).collect(Collectors.toList());
+
+        [5] - Expressão lambda inline
+
+        List<String> names = list.stream().map((p) -> p.getName().toUpperCase()).collect(Collectors.toList());
+
+#AULA258
+
+    - Criando funçõe que recebem funções como argumento
+
+            Recordando
+            •removeIf(Predicate)
+            •foreach(Consumer)
+            •map(Function)
+
+    É criado a classe ProductService com o método filteredSum
+
+    O ponto é que a lógica está embutida na função, o que torna a classe aberta para mudanças(aspecto ruim para manutenção)
+    então,o método filteredSum além de receber uma lista, recebe também o Predicate<Product> criteria, o qual expressa a lambda
+    function passada pela chamadado método sobre uma lista no programa principal
+
+
+    ->  ProductService ps = new ProductService();
+
+        double sum = ps.filteredSum(list, p -> p.getName().charAt(0) == 'M');
+
+
+    public class ProductService {
+
+    public double filteredSum(List<Product> list, Predicate<Product> criteria) {
+        double sum = 0.0;
+        for (Product product : list) {
+            if (criteria.test(product)) {
+                sum += product.getPrice();
+            }
+        }
+        return sum;
+    }
+
+}
+
+#AULA259 
+
+    - STREAM
+
+    É uma sequencia de elementos advinda de uma fonte de dados que 
+    oferece suporte a "operações agregadas".
+    • Fonte de dados: coleção, array, função de iteração, recurso de E/S
+    •Sugestão de leitura:
+    http://www.oracle.com/technetwork/pt/articles/java/streams-api-java-8-3410098-ptb.html
+
+
+    Características
+    • Stream é uma solução para processar sequências de dados de forma:• Declarativa (iteração interna: escondida do programador)
+    • Parallel-friendly (imutável -> thread safe)
+    • Sem efeitos colaterais
+    • Sob demanda (lazy evaluation)
+    • Acesso sequencial (não há índices)
+    • Single-use: só pode ser "usada" uma vez
+    • Pipeline: operações em streams retornam novas streams. Então é possível criar uma cadeia de operações (fluxo de processamento).
+
+    Operações intermediárias e terminais
+    •O pipeline é composto por zero ou mais operações intermediárias e uma terminal.
+
+    •Operação intermediária: 
+
+    • Produz uma nova streams (encadeamento)
+    • Só executa quando uma operação terminal é invocada (lazy evaluation)
+
+    •Operação terminal:
+    • Produz um objeto não-stream (coleção ou outro)
+    • Determina o fim do processamento da stream
+
+    Operações intermediárias
+    • filter
+    • map
+    • flatmap
+    • peek
+    • distinct
+    • sorted
+    • skip
+    • limit (*)
+    * short-circuit
+
+    Operações terminais
+    • forEach
+    • forEachOrdered
+    • toArray
+    • reduce
+    • collect
+    • min
+    • max
+    • count
+    • anyMatch (*)
+    • allMatch (*)
+    • noneMatch (*)
+    • findFirst (*)
+    • findAny (*)
+    * short-circuit
+
+    Criar uma stream
+    • Basta chamar o método stream() ou parallelStream() a partir 
+    de qualquer objeto Collection.
+    https://docs.oracle.com/javase/10/docs/api/java/util/Collection.html
+    • Outras formas de se criar uma stream incluem:
+    • Stream.of
+    • Stream.ofNullable
+    • Stream.iterate
+
+#AULA260
+
+    - Pipeline
+    É uma cadeia de processos utilizadas a partir da stream, são varias operações intermediárias encadeadas 
+    contendo uma terminal no final para se reinvindicar o resultado formulado através das intermediarias.
+
+#AULA261
+
+ - Exercicio Resolvido
+    Fazer um programa para ler um conjunto de produtos de um arquivo em formato .csv (suponha que exista pelo menos um produto).
+
+    Em seguida mostrar o preço médio dos produtos. Depois mostrar os nomes, em ordem decrescente, dos produtos que possue preço
+    inferior ao preço médio.
