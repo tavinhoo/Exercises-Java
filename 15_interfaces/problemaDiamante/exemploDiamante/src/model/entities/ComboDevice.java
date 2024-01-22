@@ -6,6 +6,7 @@ public class ComboDevice extends Device implements Scanner, Printer {
         super(serialNumber);
     }
 
+    @Override
     public void processDoc(String doc) {
         System.out.println("Combo processing: " + doc);
     }
@@ -15,6 +16,7 @@ public class ComboDevice extends Device implements Scanner, Printer {
         return "Combo Scan result";
     }
 
+    @Override
     public void print(String doc) {
         System.out.println("Combo printing: " + doc);
     }

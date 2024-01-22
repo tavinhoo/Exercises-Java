@@ -3,7 +3,7 @@
 - Generics
 
     • Generics permitem que classes, interfaces e métodos possam ser parametrizados por tipo. Seus benefícios são:
-    • Reuso (pode usar a classe para a entrada de diversos  tipos de dados, não a limitando a um unico tipo)
+    • Reuso (pode usar a classe para a entrada de diversos tipos de dados, não a limitando a um único tipo)
     • Type safety (Garantia de que tipos serão devidamente armazenados na variavel do seu correpondente tipo)
     • Performance
 
@@ -17,10 +17,105 @@
     public class suaClasse<T> {}  -> "T", mas poderia ser qualquer nome.(Convenção)
     A partir daí: atributos e métodos poderão trabalhar com o tipo genérico T.
 
+
+    # REVISÃO
+
+    1 - Parâmetros Generics (<T>): Os generics são frequentemente definidos usando parâmetros de tipo. Por exemplo, 
+    em uma classe ou método, você pode usar <T> para indicar um tipo genérico.
+
+    Exemplo de uma classe genérica:
+
+    public class Caixa<T> {
+    private T conteudo;
+
+    public T getConteudo() {
+        return conteudo;
+    }
+
+    public void setConteudo(T conteudo) {
+        this.conteudo = conteudo;
+    }
+}
+
+2 - Instanciação com Tipos Concretos (Caixa<String>): Ao usar a classe genérica, você especifica um tipo concreto para T durante
+ a instanciação.
+
+Caixa<String> caixaDeString = new Caixa<>();
+caixaDeString.setConteudo("Conteúdo da caixa");
+String conteudo = caixaDeString.getConteudo();
+
+Neste exemplo, Caixa<String> indica que a caixa está sendo usada para armazenar strings.
+
+3 - Métodos Genéricos (<T> em métodos): Além de classes, você pode ter métodos genéricos em Java.
+
+public <T> T primeiroElemento(List<T> lista) {
+    return lista.isEmpty() ? null : lista.get(0);
+}
+
+Este método primeiroElemento pode ser usado com listas de qualquer tipo.
+
+4 - >>>Bounded Type Parameters<<< (<T extends AlgumaClasse>): Você pode impor restrições aos tipos que podem 
+ser usados como parâmetros genéricos usando extends.
+
+public class Caixa<T extends Number> {
+    // ...
+}
+
+Aqui, T pode ser qualquer subtipo de Number.
+
+5 - Wildcards (?): Wildcards são usados quando você quer fornecer flexibilidade em relação ao tipo, mas não precisa saber o tipo exato.
+
+java
+
+public void imprimeLista(List<?> lista) {
+    for (Object elemento : lista) {
+        System.out.println(elemento);
+    }
+}
+
+Este método pode imprimir uma lista de qualquer tipo.
+
+Em resumo, generics em Java fornecem uma maneira de criar código mais flexível e seguro em termos de tipo, 
+permitindo que você escreva classes e métodos que podem ser reutilizados com diferentes tipos de dados. Essa abordagem 
+promove a expressividade e a segurança do tipo no código.
+
+[ESTÁ NO ARQUIVO DE REVISÃO]
+
+    - Uma ideia: Tenho uma lista de Shapes, e quero desenvolver uma função
+    dentro de uma classe CalculationService, chamada max() que me retorne o shape com a maior area 
+    
+    A dúvida: max() teria que ser parametrizad para trabalhar com o tipo: 
+    <T extends Shape> ou <T extends Comparable<Shape>
+    Classes que são subclasses de Shape ou Classes que implementam a interface Comprable do tipo Shape
+
+    A reposta é que a sintaxe de parametrização pode conter mais de um parâmetro
+
+    public class CalculationService {
+        public static <T extends Comparable<T> & Shape> T max(List<T> shapes) {
+            if (shapes == null || shapes.isEmpty()) {
+                return null; // Retorna null se a lista estiver vazia
+            }
+
+            T maxShape = shapes.get(0); // Assume que o primeiro shape é o maior inicialmente
+
+            for (T shape : shapes) {
+                if (shape.compareTo(maxShape) > 0) {
+                    maxShape = shape; // Atualiza maxShape se encontrarmos um shape com área maior
+                }
+            }
+
+            return maxShape;
+        }
+    }
+
+
+    ---> public static <T extends Comparable<T> & Shape> T max(List<T> shapes)
+
+ 
 #AULA239
 
 - Genéricos delimitados
-    ->>>> OBS: A classe CalculatioService e sua respectiva sintaxe, se dá pela parametrização somente do método max, por isso
+    ->>>> OBS: A classe CalculationService e sua respectiva sintaxe, se dá pela parametrização somente do método max, por isso
     não se faz CalculationService<T> e sim a sintaxe inserida em:
 
             1. public static Integer max(List<Integer> list) {...}
@@ -34,6 +129,11 @@
 
 
 #AULA240
+
+Generics são usados para definir classes, interfaces ou métodos com tipos parametrizados, oferecendo flexibilidade e reutilização de código.
+Wildcards são usados para fornecer flexibilidade quando você não precisa saber o tipo exato, permitindo operações com tipos genéricos de forma mais ampla e segura.
+O uso de wildcards geralmente é associado a situações em que você deseja operar em coleções de tipos genéricos sem se preocupar com os detalhes específicos desses tipos. 
+Generics são usados para definir estruturas de dados ou algoritmos que precisam lidar com tipos específicos de maneira mais detalhada.
 
 - Tipos Curinga
         -> Relembrando o conceito de supertipo.
@@ -52,7 +152,6 @@
 
             listObj.add("Hello"); // Agora você adicionou uma String a uma lista que deveria conter apenas Integers
             Integer number = listInts.get(0); // Ocorreria um erro em tempo de execução, pois "Hello" não é um Integer
-
 
             Generics com <T> (Tipo Parametrizado):
 

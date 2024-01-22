@@ -29,7 +29,7 @@ Upcasting => TaxService taxEscolhida = new "taxQualquer";
     •Inversão de controle
 
         Padrão de desenvolvimento que consiste em retirar da classe a
-        responsabilidade deinstanciar suas dependências.
+        responsabilidade de instanciar suas dependências.
 
     •Injeção de dependência
 
@@ -37,8 +37,20 @@ Upcasting => TaxService taxEscolhida = new "taxQualquer";
     instancia a dependência, que é então injetada no objeto "pai". Pode ser
     implementada de várias formas:
         • Construtor
-        • Classedeinstanciação(builder/factory)
+        • Classede instanciação(builder/factory)
         • Container/framework
+
+
+    - Quando a dependencia de instanciar um TaxService, é da classe RentalService, o acoplamento é designado FORTE
+    existe uma dependencia concreta a partir de RentalService, pois ela é quem instancia por conta propria.
+
+    A manutenção se torna mais trabalhosa.
+
+    - Quando a dependencia é colocada para que o usuario insira qual TaxService será usado, isso se designa acoplamento FRACO
+    Agora a instanciação é uma escolha do usuario, a classe RentalService não conhece especificamente qual será a dependencia 
+    injetada. 
+
+    A manutenção se torna mais simples.
 
 #AULA232
 - Herdar vs Cumprir contrato
@@ -61,7 +73,7 @@ Upcasting => TaxService taxEscolhida = new "taxQualquer";
 - Herança múltipla e o problema do diamante
     . Supondo que exista uma classe abstrata A, em que B e C são subclasses de A:
       B e C precisam especificar um método genérico da classe A. Então surge a subclasse 
-      D que "herda" B e C, ou seja, o problema está no momento de implementação do método
+      D que "herda" B e C, ou seja, o problema está no momento de implementação do método.
       D pode executar o método de B ou de C.
 
       Em java isso não é permitido
@@ -72,13 +84,23 @@ Upcasting => TaxService taxEscolhida = new "taxQualquer";
       e então, a classe D pode implementar as duas, cumprindo o contrato de especificar
       os dois métodos genéricos das classes B e C;
 
-    => Projeto Exemplo:
+      As classes B e C, implementam uma interface adequada para cada uma.
+      Como no exercício, ConcretePrinter implementa Printer e ConcreteScanner implementa Scanner;
+
+      Posteriormente, ComboDevice extends Device(ganhando serialNumber) e implements Printer e Scanner;
+
+    => Projeto Exemplo: 
+                               (Abstract Classe)
                                     Device
-                            Printer        Scanner
-                                  ComboDevice
+                INTERFACE - Printer        Scanner - INTERFACE
+            Classe - ConcretePrinter         ConcreteScanner - Classe
+                                -> ComboDevice <-
+                (Classe que extends Device, implements Printer, Scanner)
 
 #AULA234
+
     - Interface Comparable
+
     À princípio:    public interface Comparable<T> {int compareTo(T o);}   
     Ela basicamente compara objetos, com a operação descrita acima, 
     ela faz a comparação de objetos(atributos de objetos - o que você quiser)
@@ -109,3 +131,7 @@ Upcasting => TaxService taxEscolhida = new "taxQualquer";
     •Interfaces ainda são bem diferentes de classes abstratas. Interfaces 
     não possuem recursos tais como construtores e atributos.
     
+#REVISÃO
+
+    Nas interfaces, os métodos e atributos são implicitamente Public, static e final
+    Portanto não né necessário usar as palavras chave.

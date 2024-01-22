@@ -1,6 +1,6 @@
 package model.entities;
 
-public class ConcreteScanner extends Device implements Scanner{
+public class ConcreteScanner extends Device implements Scanner {
 
     public ConcreteScanner(String serialNumber) {
         super(serialNumber);
@@ -11,6 +11,7 @@ public class ConcreteScanner extends Device implements Scanner{
         System.out.println("Scanner processing: " + doc);
     }
 
+    @Override
     public String scan() {
         return "Scanned content";
     }

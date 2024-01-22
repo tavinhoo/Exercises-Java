@@ -1,17 +1,21 @@
-public class BrazilInterestService implements InterestService {
-
-    private Double interestRate;
+public class BrazilInterestService extends AbstractInterestService {
 
     public BrazilInterestService(Double interestRate) {
-        this.interestRate = interestRate;
+        super(interestRate);
     }
 
-    public double getInterestRate() {
-        return this.interestRate;
-    }
+    // private Double interestRate;
 
-    public void setInterestRate(Double interestRate) {
-        this.interestRate = interestRate;
-    }
+    // public BrazilInterestService(Double interestRate) {
+    // this.interestRate = interestRate;
+    // }
+
+    // public double getInterestRate() {
+    // return this.interestRate;
+    // }
+
+    // public void setInterestRate(Double interestRate) {
+    // this.interestRate = interestRate;
+    // }
 
 }
