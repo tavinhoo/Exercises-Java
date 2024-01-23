@@ -245,6 +245,17 @@ Generics são usados para definir estruturas de dados ou algoritmos que precisam
                           List<? super Integer> listaCuringa = new ArrayList<>();
                           listaCuringa.add(42); // Adição permitida
 
+
+        A escolha entre Generics e Wildcards:
+
+            Escolha entre os Dois:
+
+            -> Se você está apenas interessado em operações de leitura e deseja aceitar listas que contenham subtipos de Shape, 
+            o wildcard limitado superior (List<? extends Shape>) é uma escolha adequada.
+
+            -> Se você precisa de flexibilidade total, incluindo a capacidade de adicionar elementos à lista, ou se deseja acessar
+            métodos específicos do tipo T, então um tipo genérico (List<T>) é mais apropriado.
+
 #AULA242
 
 - HashCode e equals.
@@ -437,3 +448,134 @@ DICA:
                 stock.remove(novoProduto);
             
 
+# REVISAO PARAMETRIZAÇÃO DA CLASSE MAX NO EXERCÍCIO QUE RETORNA O ELEMENTO MAIS CARO
+
+public static <T extends Comparable<T>> T max(List<T> list) {
+        if (list.isEmpty()) {
+            throw new IllegalStateException("List can't be empty....");
+        }
+
+        T max = list.get(0);
+        for (T item : list) {
+            if (item.compareTo(max) > 0) {
+                max = item;
+            }
+        }
+        return max;
+    }
+
+- Acima se tem a função parametrizada T, declarando que trabalha com um tipo T 
+que implementa a interface Comparable<T>. Porém, Nélio diz que para tornar a parametrização
+ainda mais correta, seria necessario parametrizar da seguinte forma:
+
+<T extends Comparable<? super T>>
+
+- > Mas por que?
+
+[CHATGPT]
+
+ modificação <T extends Comparable<? super T>> adiciona um wildcard (?) ao Comparable, introduzindo uma variação conhecida como 
+ "curinga de tipo inferior". Isso significa que você está permitindo que T seja comparável com tipos que são superclasses de T.
+
+Vamos analisar o que cada parte significa:
+
+<T extends Comparable<? super T>>: Isso declara um tipo genérico T que deve ser uma subclasse de Comparable. O curinga <? super T>
+significa que você permite que T seja comparável com qualquer tipo que seja um supertipo de T (ou seja, T ou qualquer classe acima dela na hierarquia de classes).
+Essa modificação pode ser útil em certos casos para tornar o método mais flexível e abrangente em termos de comparação. Vou explicar com mais detalhes.
+
+Comparable<T> vs Comparable<? super T>:
+Comparable<T>:
+
+Se você usar Comparable<T>, o método só aceitará tipos que são diretamente comparáveis com T. Isso significa que T e a classe de comparação devem ser da mesma hierarquia.
+
+public static <T extends Comparable<T>> T max(List<T> list) {
+    // ...
+}
+
+Comparable<? super T>:
+
+Usar Comparable<? super T> é mais flexível. Ele permite que T seja comparável com qualquer tipo que seja um supertipo de T, incluindo a própria T e todas as suas superclasses.
+
+public static <T extends Comparable<? super T>> T max(List<T> list) {
+    // ...
+}
+
+Exemplo Prático:
+Considere as classes Vehicle, Car (subclasse de Vehicle), e Boat (subclasse de Vehicle):
+
+class Vehicle implements Comparable<Vehicle> {
+    @Override
+    public int compareTo(Vehicle o) {
+        // Lógica de comparação específica de Vehicle
+        return 0;
+    }
+}
+
+class Car extends Vehicle {
+    // Pode ou não ter sua própria lógica de comparação
+}
+
+class Boat extends Vehicle {
+    // Pode ou não ter sua própria lógica de comparação
+}
+
+Com <T extends Comparable<T>>, você só pode comparar objetos Car com outros objetos Car e objetos Boat com outros objetos Boat. Com <T extends Comparable<? super T>>, 
+você pode comparar Car com Vehicle e Boat com Vehicle, proporcionando maior flexibilidade. Isso é especialmente útil quando você deseja usar o método max para comparar 
+objetos de uma hierarquia de classes mais ampla.
+
+
+=====> VERSÃO SIMPLIFICADA: 
+
+Considere o método original:
+
+public static <T extends Comparable<T>> T max(List<T> list) {
+    // ...
+}
+
+Este método aceita uma lista de elementos comparáveis do mesmo tipo T. No entanto, o professor sugeriu uma modificação para tornar o método mais flexível:
+
+public static <T extends Comparable<? super T>> T max(List<T> list) {
+    // ...
+}
+
+A diferença chave está na parte Comparable<? super T>.
+
+Comparable<T>:
+
+Isso significa que os elementos na lista devem ser comparáveis diretamente com T.
+Se T é uma classe Car, você só pode comparar Car com Car.
+Comparable<? super T>:
+
+Isso significa que os elementos na lista podem ser comparáveis com qualquer superclasse de T, incluindo T em si.
+Se T é uma classe Car, você pode comparar Car com Car, mas também com Vehicle (uma superclasse de Car).
+Exemplo Prático:
+
+Suponha as classes:
+
+class Vehicle implements Comparable<Vehicle> {
+    @Override
+    public int compareTo(Vehicle o) {
+        // Implementação de comparação específica de Vehicle
+        return 0;
+    }
+}
+
+class Car extends Vehicle {
+    // Implementação adicional ou sobrescrita da comparação
+}
+
+class Boat extends Vehicle {
+    // Implementação adicional ou sobrescrita da comparação
+}
+
+Com o método original (Comparable<T>), você só pode comparar Car com Car e Boat com Boat. Com a modificação sugerida (Comparable<? super T>),
+você pode comparar Car com Vehicle e Boat com Vehicle.
+
+List<Car> cars = Arrays.asList(new Car(), new Car());
+Car maxCar = max(cars); // Funciona com a versão original
+
+List<Boat> boats = Arrays.asList(new Boat(), new Boat());
+Boat maxBoat = max(boats); // Funciona com a versão original
+
+List<Vehicle> vehicles = Arrays.asList(new Car(), new Boat());
+Vehicle maxVehicle = max(vehicles); // Agora também funciona com a versão modificada
