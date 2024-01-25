@@ -1,0 +1,164 @@
+- [BANCO DE DADOS - COMPREENDENDO]
+
+1 - O que é um Banco de Dados?
+
+        Um banco de dados é uma coleção organizada de dados. Esses dados são estruturados de forma a permitir o 
+        armazenamento, recuperação, atualização e gerenciamento eficientes.
+
+2 - Sistemas de Gerenciamento de Bancos de Dados (SGBD):
+
+        Os SGBDs são softwares que fornecem uma interface para interagir com o banco de dados. Exemplos incluem 
+        MySQL, PostgreSQL, Oracle, SQL Server, SQLite, entre outros.
+
+3 - Modelo Relacional:
+
+        Muitos bancos de dados seguem o modelo relacional, onde os dados são organizados em tabelas com linhas (registros) 
+        e colunas (campos). Relacionamentos entre tabelas são estabelecidos por meio de chaves.
+
+4 - SQL (Structured Query Language):
+
+        SQL é uma linguagem usada para consultar e manipular dados em bancos de dados relacionais. Ela inclui comandos como 
+        SELECT, INSERT, UPDATE, DELETE para realizar operações no banco de dados.
+
+5 - Tabelas e Esquemas:
+
+        Tabelas são estruturas fundamentais que armazenam os dados. Cada tabela tem um conjunto específico de colunas e cada coluna
+        possui um tipo de dados associado. Conjuntos de tabelas formam esquemas.
+
+6 - Chaves Primárias e Estrangeiras:
+
+        Chaves primárias são identificadores únicos em uma tabela, enquanto chaves estrangeiras são usadas para estabelecer relacionamentos 
+        entre tabelas.
+
+7 - Normalização:
+
+        Normalização é o processo de organizar dados para reduzir a redundância e dependência. Isso ajuda a evitar problemas como a inserção,
+        atualização ou exclusão de dados que poderiam resultar em inconsistências.
+
+8 - Backup e Recuperação:
+
+        A segurança dos dados é crucial. Isso inclui a realização regular de backups para evitar perda de dados e a implementação de práticas 
+        de recuperação em caso de falhas.
+
+9 - Índices:
+
+        Índices são estruturas que melhoram a velocidade de recuperação de dados em consultas. Eles são semelhantes aos índices em livros, 
+        tornando mais fácil encontrar informações específicas.
+
+10 - Segurança e Permissões:
+
+        Os SGBDs oferecem recursos para controlar o acesso aos dados. É importante entender como conceder permissões e garantir a segurança dos 
+        dados sensíveis.
+
+11 - Conceitos de Transação:
+
+        Transações garantem a integridade dos dados, garantindo que um conjunto de operações seja executado como uma única unidade.
+
+Esses são apenas alguns conceitos básicos. À medida que você avança, você pode explorar tópicos mais avançados, como otimização de consultas, modelagem de dados, 
+procedimentos armazenados, triggers, entre outros. Prática e experiência são fundamentais, então, à medida que aprende, tente aplicar seus conhecimentos em projetos práticos.
+
+
+=======> Como surge um banco de dados?
+        Surge a partir de uma gereralização pensada (Requisito de software)
+        que atende aos parâmetros de uma necessidade.
+
+        Se baseia em que variáveis precisam associadas ao banco a partir de uma entidade
+
+        Cliente -> Nome, idade, email,..., id.
+
+
+
+[PROBLEMA 1]
+O cliente Tera Comércio de Produtos S.A, solicitou a modelagem de um banco de dados para cadastro dos seus clientes.
+A função da Unidados é a análise dos requisitos junto aos usuários para a correta construção do produto. O cliente deseja que 
+,inicialmente os scripts sejam construídos para o Banco de Dados MySQL, porém, posteriormente pode haver mudança no ambiente e consequentemente 
+adaptação dos scripts para outros produtos de SGBD.
+
+O cliente não quer nenhuma informação relativa à vendas ou estoque, desejando somente as informações primárias de Clientes
+
+/* MODELAGEM BÁSICA - ENTIDADE = TABELA */ 
+/*
+CLIENTE
+
+NOME - CARACTER(30)
+CPF - NUMERICO(11)
+EMAIL - CARACTERE(30)
+TELEFONE - CARACTERE(30)
+ENDERECO - CARACTERE(100)
+SEXO - CARACTERE(1)
+
+/* PROCESSOS DE MODELAGEM */
+
+/* FASE 01 E FASE 02 - FEITAS PELO ADMINISTRADOR DE DADOS */
+/*
+MODELAGEM CONCEITUAL - RASCUNHO(CONVERSA DE COMO SERÁ MODELADO)
+MODELAGEM LÓGICA - APLICA O RASCUNHO A UM MODELO LÓGICO, EX: UML, QUALQUER PROGRAMA DE MODELAGEM
+/* FASE 03 - DBA OU AD */ 
+/*
+MODELAGEM FÍSICA - SCRIPTS DE BANCO - SQL + TIPAGEM DE DADOS
+*/
+
+/* INCIANDO MODELAGEM FÍSICA */ 
+
+
+>>>>>>>>>>>>>>> SINTAXE <<<<<<<<<<<<<<<<<<
+
+
+/* Criando banco de dados */ 
+
+CREATE DATABASE EXEMPLO;
+
+CREATE DATABASE PROJETO;
+
+/* MAS E AÍ, COMO SABER QUAL ESTOU USANDO? OBS: NÃO SE PODE CRIAR O DB COM MESMO NOME */
+
+/* CONECTANDO-SE AO BANCO */
+
+USE PROJETO;
+
+/* CRIANDO A TABELA DE CLIENTES */
+
+CREATE TABLE CLIENTE(
+	
+	NOME VARCHAR(30),
+	SEXO CHAR(1),
+	EMAIL VARCHAR(30),
+	CPF INT(11),
+	TELEFONE VARCHAR(30),
+	ENDERECO VARCHAR(100)
+);
+
+/* VERIFICANDO AS TABELAS DO BANCO */ 
+
+SHOW TABLES;
+
+USE EXEMPLO;
+SHOW TABLES;
+
+USE PROJETO
+
+/* DESCOBRINDO COMO É A ESTRUTURA DE UMA TABELA (O QUE COMPOE A TABELA?) */
+
+DESC PROJETO;
+
+
+
+#AULA265 
+
+- JDBC (Java Database Connectivity): API padrão do java para aceso a dados.
+- pacoes: java.sql e javax.sql (API suplementar para servidores)
+
+Resumo: o JDBC fornece um driver na sua aplicação -> JDBC Driver Manager
+
+e ele vai converter o código para os bancos de dados a serem utilizados.
+
+#AULA266
+
+- Operações básicas da álgebra relacional
+
+    . Restrição
+    . Projeção
+    . Produto Cartesiano
+    . Junção(produto cartesiano + restrição de chaves correspondentes)
+
+    
