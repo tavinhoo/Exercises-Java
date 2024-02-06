@@ -622,6 +622,146 @@ INSERT INTO CLIENTE VALUES('LUIZ', 'M', 'OTAVIO@GMAIL.COM', 43628486, '189981111
 /* SEMPRE ESPECIFICAR MAIS OS ARGUMENTOS  */
 DELETE FROM CLIENTE WHERE NOME = 'LUIZ' AND CPF IS NULL;
 
+/* =================================================================== */
+/* =================================================================== */
+	
+	/* MODELANDO BANCO DE DADOS PARA SISTEMAS */
+	
+	/*
+	NA PRIMEIRA AULA O PROFESSOR RETRATA OS ERROS COMETIDOS ATÉ AGORA, APESAR 
+	DO USO CORRETO DE TODOS OS COMANDOS APRENDIDOS, OS DADOS ESTÃO DISPOSTOS DE UMA FORMA
+	INCORRETA.
+	*/
+	
+	/* PRIMEIRA FORMA NORMAL */
+	
+	/* 
+	
+	---------------------------------------------
+	1 - TODO CAMPO VETORIZADO SE TORNARÁ OUTRA TABELA;
+	
+	[AMARELO, LARANJA, AZUL, VERMELHO] - VETOR DE CORES	
+	
+	COMO ASSIM CAMPO VETORIZADO?
+	
+	LEMBRAR DOS VETORES NA PROGRAMAÇÃO
+	COMO NO EXEMPLO ACIMA, IMAGINE QUE EXISTA UM O ATRIBUTO CORES
+	PARA DEFINIR QUAIS CORES O OBJETO POSSUI
+	
+	ISSO É UM CAMPO VETORIZADO, POR QUE?
+	
+	PORQUE ESSE ATRIBUTO CONTÉM MAIS DO QUE UMA UNICA COR.
+	
+	---------------------
+	
+	2 - TODO CAMPO MULTIVALORADO SE TORNARÁ OUTRA TABELA 
+	QUANDO O CAMPO FOR DIVISÍVEL
+	
+	---------------------
+	
+	3 - TODA TABELA NECESSITA DE PELO MENOS UM CAMPO QUE IDENTIFIQUE 
+	TODO O REGISTRO COMO SENDO UNICO
+	
+	É O QUE CHAMAMOS DE CHAVE PRIMÁRIA OU PRIMARY KEY
+	
+	IDEIA: NA TABELA CLIENTE, A CHAVE PRIMÁRIA PODERIA SER O CPF?
+	A PRINCÍPIO SIM, MAS NÃO. O CPF É UM 'NEGÓCIO' SOB DOMÍNIO DO GOVERNO
+	E SE ELES DECIDIREM MUDAR? O CPF DEIXARIA DE EXISTIR E TODO O BANCO SERIA INVÁLIDADO.
+	
+	EXISTEM DOIS TIPOS DE CHAVE
+	
+	NATURAL - CPF - REALMENTE PERTENCE A LINHA (DADOS DO USUARIO)
+	
+	ARTIFICIAL - ID, SENHA DE ATENDIMENTO, TICKET - UMA ORDENAÇÃO DESENVOLVIDA PARA ORGANIZAÇÃO, IDENTIFICAÇÃO
+	E PRECEDENCIA -> MUITO MAIS USADA ATUALMENTE
+	
+	------------------------------------
+	
+	-> CARDINALIDADE E OBRIGATORIEDADE
+	
+	************************************
+			MODELAGEM LÓGICA
+	************************************
+	
+	Obrigatoriedade 
+		Trata de visar se é obrigatorio ou não
+		a entrada de um campo
+		
+		1 - verdadeiro (obrigatorio)
+		0 - falso (não é obrigatorio)
+		
+		
+	Cardinalidade 
+		Trata do maximo de ocorrencias, enquanto OBRIGATORIEDADE
+		trata de acontecer ou não.
+	
+	(obrigatoriedade, cardinalidade)
+	(0, n)
+	(0, 1)
+	(1, n)
+	(1, 1)
+
+	(x, y)
+	x -> Obrigatoriedade 
+	y -> Cardinalidade
+	
+	TELEFONE 
+	(0, n)
+	Não é obrigatorio
+	mas pode haver muitos
+	
+	ENDERECO 
+	(1, 1) 
+	É obrigatorio
+	só pode haver um
+	
+	CLIENTE
+	2X (1,1)
+	Obrigatorio para cada campo vetorizado(para existencia dele)
+	no maximo 1
+	
+	---> (RELAÇÕES ABAIXO)
+	DEVE CRUZAR OS INDICES y das relações
+	
+	CLIENTE -> TELEFONE
+	(1, "1")     (0, "n") 
+	(1, n)
+	
+	CLIENTE -> ENDERECO
+	(1, "1")     (1, "1") 
+	(1, 1)
+	
+	*/
+	
+	************************************
+			MODELAGEM FÍSICA
+	************************************
+	
+	CREATE DATABASE COMERCIO;
+	
+	USE COMERCIO;
+	
+	CREATE TABLE CLIENTE(
+	
+		IDCLIENTE INT PRIMARY KEY AUTO_INCREMENT,
+		NOME VARCHAR(60) NOT NULL,
+		SEXO ENUM('M','F') NOT NULL,
+		EMAIL VARCHAR(50) UNIQUE,
+		CPF VARCHAR(15) UNIQUE
+	
+	);
+	
+	/* ENUM SÓ FUNCIONA NO MYSQL */
+	
+	/* EMAIL NÃO É UM CAMPO EXIGIDO(DEPENDE DA REGRA DE NEGOCIO)
+	PORÉM, NÃO SE PODE PERMITIR QUE USUARIOS DISTINDOS USEM O MESMO
+	EMAIL
+	
+	
+	COMO FAZER ISSO? "UNIQUE"
+	
+	*/
+
 
 
 
