@@ -790,7 +790,275 @@ DELETE FROM CLIENTE WHERE NOME = 'LUIZ' AND CPF IS NULL;
 		CADASTRO DE MAIS DE UM (OPCIONAL)
 
 
+	
+	/*
+		FK - FOREIGN KEY
+		
+		CHAVE ESTRANGEIRA É A CHAVE PRIMARIA DE 
+		UMA TABELA QUE VAI ATÉ A OUTRA TABELA PARA 
+		FAZER REFERENCIA ENTRE OS REGISTROS.
+		
+		
 	*/
+	
+	/* 
+	
+	
+	======== QUEM RECEBE A CHAVE ESTRANGEIRA? 
+	
+		EM RELACIONAMENTO 1 X 1 A CHAVE ESTRANGEIRA
+		FICA NA TABELA MAIS FRACA
+	
+		EM RELACIONAMENTOS 1 X N A CHAVE ESTRANGEIRA
+		FICARÁ SEMPRE NA CARDIALIDADE N
+
+	*/
+	
+	/* 
+		SINTAXE PARA RELAÇÃO DE TABELAS
+		
+		ID_CLIENTE INT UNIQUE,
+		FOREIGN KEY(ID_CLIENTE) REFERENCES CLIENTE(IDCLIENTE) 
+	
+	*/
+
+		CREATE TABLE ENDERECO(	
+			IDENDERECO INT PRIMARY KEY AUTO_INCREMENT,
+			RUA VARCHAR(30) NOT NULL,
+			BAIRRO VARCHAR(30) NOT NULL,
+			CIDADE VARCHAR(30) NOT NULL,
+			ESTADO CHAR(2) NOT NULL,
+			ID_CLIENTE INT UNIQUE,
+			FOREIGN KEY(ID_CLIENTE) REFERENCES CLIENTE(IDCLIENTE) 
+		);
+		
+		CREATE TABLE TELEFONE(
+			IDTELEFONE INT PRIMARY KEY AUTO_INCREMENT,
+			TIPO ENUM('RES', 'COM', 'CEL') NOT NULL,
+			NUMERO VARCHAR(10) NOT NULL,
+			ID_CLIENTE INT,
+			FOREIGN KEY(ID_CLIENTE) REFERENCES CLIENTE(IDCLIENTE) 
+		);	
+		
+		/* 
+		
+		-------------INSERINDO DADOS---------------
+		
+		*/
+		
+		/* 
+			o ID "NULL" diz que quem deve cuidar do id(primary key)
+			é o proprio MySQL. Isso é necessário pois voce precisa indicar que está
+			adicionando algo no banco.
+
+		*/
+		
+		INSERT INTO CLIENTE VALUES(NULL,'JOAO', 'M', 'JOAO@IG.COM', '131312120');
+		INSERT INTO CLIENTE VALUES(NULL,'CARLOS', 'M', 'CARLOS@IG.COM', '15334120');
+		INSERT INTO CLIENTE VALUES(NULL,'ANA', 'F', 'ANAIG.COM', '6544512120');
+		INSERT INTO CLIENTE VALUES(NULL,'CLARA', 'F', NULL, '65123120');
+		INSERT INTO CLIENTE VALUES(NULL,'JORGE', 'M', 'JORGE@IG.COM', '65464520');
+		INSERT INTO CLIENTE VALUES(NULL,'CELIA', 'F', 'CELIA@IG.COM', '7647672120');
+		
+		SELECT * FROM CLIENTE;
+		
+		+-----------+--------+------+---------------+------------+
+		| IDCLIENTE | NOME   | SEXO | EMAIL         | CPF        |
+		+-----------+--------+------+---------------+------------+
+		|         7 | JOAO   | M    | JOAO@IG.COM   | 131312120  |
+		|         8 | CARLOS | M    | CARLOS@IG.COM | 15334120   |
+		|         9 | ANA    | F    | ANAIG.COM     | 6544512120 |
+		|        10 | CLARA  | F    | NULL          | 65123120   |
+		|        11 | JORGE  | M    | JORGE@IG.COM  | 65464520   |
+		|        12 | CELIA  | F    | CELIA@IG.COM  | 7647672120 |
+		+-----------+--------+------+---------------+------------+
+		
+		/* 
+		
+		[INSERINDO NAS TABELAS RELACIONADAS]
+	
+		****************** INSERÇÕES EM RELACIONAMENTOS 1 X 1 ******************
+		
+		*/
+		
+		INSERT INTO ENDERECO VALUES(NULL,'RUA ANTONIO SÁ','CENTRO','BELO HORIZONTE','MG', 10);
+		INSERT INTO ENDERECO VALUES(NULL,'RUA CAPITAO HERMES','CENTRO','RIO DE JANEIRO','RJ', 7);
+		INSERT INTO ENDERECO VALUES(NULL,'RUA PRES VARGAS','JARDINS','SÃO PAULO','SP', 9);
+		INSERT INTO ENDERECO VALUES(NULL,'RUA ALFANDEGA','ESTÁCIO','RIO DE JANEIRO','RJ', 8);
+		INSERT INTO ENDERECO VALUES(NULL,'RUA DO OUVIDOR','FLAMENGO','RIO DE JANEIRO','RJ', 12);
+		INSERT INTO ENDERECO VALUES(NULL,'RUA URUGUAIANA','CENTRO','VITÓRIA','ES', 11);
+		
+		
+		/* 
+		
+		EM RELACIONAMENTO 1 X 1 A CHAVE ESTRANGEIRA NAO SE REPETE
+		*/
+		
+		/* ****************** INSERÇÕES EM RELACIONAMENTOS 1 X N ****************** */
+		
+		INSERT INTO TELEFONE VALUES(NULL, 'CEL','189981231',11);
+		INSERT INTO TELEFONE VALUES(NULL, 'RES','189981231',7);
+		INSERT INTO TELEFONE VALUES(NULL, 'COM','189981231',7);
+		INSERT INTO TELEFONE VALUES(NULL, 'RES','189981231',8);
+		INSERT INTO TELEFONE VALUES(NULL, 'CEL','189981231',11);
+		INSERT INTO TELEFONE VALUES(NULL, 'COM','189981231',8);
+		INSERT INTO TELEFONE VALUES(NULL, 'RES','189981231',7);
+		INSERT INTO TELEFONE VALUES(NULL, 'RES','189981231',9);
+		INSERT INTO TELEFONE VALUES(NULL, 'CEL','189981231',11);
+		INSERT INTO TELEFONE VALUES(NULL, 'COM','189981231',9);
+		INSERT INTO TELEFONE VALUES(NULL, 'CEL','189981231',11);
+		
+		/* **************************************************** */
+		/* **************************************************** */
+		/* **************************************************** */
+		/* **************************************************** */
+		
+		/* SELEÇÃO E PROJEÇÃO */
+		
+		
+		/* SELEÇÃO, PROJEÇÃO E JUNÇÃO */
+		
+		/*
+			----> PROJEÇÃO (SELECT)
+			
+				É TUDO QUE VOCE QUER VER NA TELA.
+		*/
+		
+		SELECT * FROM TELEFONE;
+		SELECT NOW() AS DATA_ATUAL;
+		
+		SELECT 2 + 2 AS SOMA;
+		
+		SELECT 2 + 2 AS SOMA, NOME, NOW() FROM CLIENTE;
+		
+		/*
+			----> PROJEÇÃO (SELECT)
+			
+				É TUDO QUE VOCE QUER VER NA TELA.
+		*/
+
+		
+		SELECT * FROM TELEFONE;
+		SELECT NOW() AS DATA_ATUAL;
+		
+		SELECT 2 + 2 AS SOMA;
+		
+		SELECT 2 + 2 AS SOMA, NOME, NOW() FROM CLIENTE;
+		
+		/*
+			----> SELEÇÃO 
+			
+				SÃO OS FILTROS QUE TRAZEM UM SUBCONJUNTO DE UM CONJUNTO TOTAL
+				SÃO CONDIÇÕES IMPOSTAS AO GRANDE CONJUNTO, QUE RETORNAM UM SUBCONJUNTO
+				DE ACORDO COM OS PARAMETROS DEFINIDOS PELAS CONDIÇÕES.
+				
+				CLAUSULA WHERE;
+				
+		*/
+		
+		SELECT NOME, SEXO, EMAIL FROM CLIENTE WHERE SEXO = 'F';
+		
+		SELECT NOME AS CLIENTE_SEM_EMAIL, EMAIL /* PROJECAO */
+		FROM CLIENTE /* ORIGEM */
+		WHERE EMAIL IS NULL; /* SELECAO */
+		
+		
+		/*
+			----> JUNÇÃO ( JOIN )
+				
+				
+				
+				
+		*/
+		
+		SELECT NOME, EMAIL, IDCLIENTE FROM CLIENTE;
+		
+		+--------+---------------+-----------+
+		| NOME   | EMAIL         | IDCLIENTE |
+		+--------+---------------+-----------+
+		| JOAO   | JOAO@IG.COM   |         7 |
+		| CARLOS | CARLOS@IG.COM |         8 |
+		| ANA    | ANAIG.COM     |         9 |
+		| CLARA  | NULL          |        10 |
+		| JORGE  | JORGE@IG.COM  |        11 |
+		| CELIA  | CELIA@IG.COM  |        12 |
+		+--------+---------------+-----------+
+		
+		SELECT ID_CLIENTE, RUA, BAIRRO, CIDADE, ESTADO FROM ENDERECO;
+		
+		+------------+--------------------+----------+----------------+--------+
+		| ID_CLIENTE | RUA                | BAIRRO   | CIDADE         | ESTADO |
+		+------------+--------------------+----------+----------------+--------+
+		|         10 | RUA ANTONIO SÁ     | CENTRO   | BELO HORIZONTE | MG     |
+		|          7 | RUA CAPITAO HERMES | CENTRO   | RIO DE JANEIRO | RJ     |
+		|          9 | RUA PRES VARGAS    | JARDINS  | SÃO PAULO      | SP     |
+		|          8 | RUA ALFANDEGA      | ESTÁCIO  | RIO DE JANEIRO | RJ     |
+		|         12 | RUA DO OUVIDOR     | FLAMENGO | RIO DE JANEIRO | RJ     |
+		|         11 | RUA URUGUAIANA     | CENTRO   | VITÓRIA        | ES     |
+		+------------+--------------------+----------+----------------+--------+
+		
+		/* IDCLIENTE, NOME, EMAIL, SEXO, RUA, BAIRRO, CIDADE, ESTADO, ID_CLIENTE 
+		
+			COMO POSSO FAZER ESSA PROJEÇÃO???????
+		*/
+		
+		SELECT IDCLIENTE, NOME, EMAIL, SEXO, RUA, BAIRRO, CIDADE, ESTADO, ID_CLIENTE
+		FROM CLIENTE, ENDERECO
+		WHERE IDCLIENTE = ID_CLIENTE;
+		
+		+-----------+--------+---------------+------+--------------------+----------+----------------+--------+------------+
+		| IDCLIENTE | NOME   | EMAIL         | SEXO | RUA                | BAIRRO   | CIDADE         | ESTADO | ID_CLIENTE |
+		+-----------+--------+---------------+------+--------------------+----------+----------------+--------+------------+
+		|         7 | JOAO   | JOAO@IG.COM   | M    | RUA CAPITAO HERMES | CENTRO   | RIO DE JANEIRO | RJ     |          7 |
+		|         8 | CARLOS | CARLOS@IG.COM | M    | RUA ALFANDEGA      | ESTÁCIO  | RIO DE JANEIRO | RJ     |          8 |
+		|         9 | ANA    | ANAIG.COM     | F    | RUA PRES VARGAS    | JARDINS  | SÃO PAULO      | SP     |          9 |
+		|        10 | CLARA  | NULL          | F    | RUA ANTONIO SÁ     | CENTRO   | BELO HORIZONTE | MG     |         10 |
+		|        11 | JORGE  | JORGE@IG.COM  | M    | RUA URUGUAIANA     | CENTRO   | VITÓRIA        | ES     |         11 |
+		|        12 | CELIA  | CELIA@IG.COM  | F    | RUA DO OUVIDOR     | FLAMENGO | RIO DE JANEIRO | RJ     |         12 |
+		+-----------+--------+---------------+------+--------------------+----------+----------------+--------+------------+
+		
+		/* ---------------- FUNCIONOU ------------------ MAS NÃO SE DEVE USAR NO DIA A DIA. ISSO É APENAS UMA PROJEÇÃO */
+		
+		
+		/* FAZENDO DA FORMA CORRETA - INNER JOIN*/
+		SELECT NOME EMAIL, SEXO, RUA, BAIRRO, CIDADE, ESTADO, IDCLIENTE, ID_CLIENTE
+		FROM CLIENTE
+		INNER JOIN ENDERECO
+		ON IDCLIENTE = ID_CLIENTE;
+		
+		+--------+------+--------------------+----------+----------------+--------+-----------+------------+
+		| EMAIL  | SEXO | RUA                | BAIRRO   | CIDADE         | ESTADO | IDCLIENTE | ID_CLIENTE |
+		+--------+------+--------------------+----------+----------------+--------+-----------+------------+
+		| JOAO   | M    | RUA CAPITAO HERMES | CENTRO   | RIO DE JANEIRO | RJ     |         7 |          7 |
+		| CARLOS | M    | RUA ALFANDEGA      | ESTÁCIO  | RIO DE JANEIRO | RJ     |         8 |          8 |
+		| ANA    | F    | RUA PRES VARGAS    | JARDINS  | SÃO PAULO      | SP     |         9 |          9 |
+		| CLARA  | F    | RUA ANTONIO SÁ     | CENTRO   | BELO HORIZONTE | MG     |        10 |         10 |
+		| JORGE  | M    | RUA URUGUAIANA     | CENTRO   | VITÓRIA        | ES     |        11 |         11 |
+		| CELIA  | F    | RUA DO OUVIDOR     | FLAMENGO | RIO DE JANEIRO | RJ     |        12 |         12 |
+		+--------+------+--------------------+----------+----------------+--------+-----------+------------+
+		
+		SELECT NOME EMAIL, SEXO, RUA, BAIRRO, CIDADE, ESTADO, IDCLIENTE, ID_CLIENTE
+		FROM CLIENTE
+		INNER JOIN ENDERECO
+		ON IDCLIENTE = ID_CLIENTE
+		WHERE SEXO = 'F';
+		
+		+-------+------+-----------------+----------+----------------+--------+-----------+------------+
+		| EMAIL | SEXO | RUA             | BAIRRO   | CIDADE         | ESTADO | IDCLIENTE | ID_CLIENTE |
+		+-------+------+-----------------+----------+----------------+--------+-----------+------------+
+		| ANA   | F    | RUA PRES VARGAS | JARDINS  | SÃO PAULO      | SP     |         9 |          9 |
+		| CLARA | F    | RUA ANTONIO SÁ  | CENTRO   | BELO HORIZONTE | MG     |        10 |         10 |
+		| CELIA | F    | RUA DO OUVIDOR  | FLAMENGO | RIO DE JANEIRO | RJ     |        12 |         12 |
+		+-------+------+-----------------+----------+----------------+--------+-----------+------------+
+		
+		/* 
+		**************************************************
+		UMA DÚVIDA: COMO EU FARIA UMA QUERY QUE ME RETORNASSE
+		OS CLIENTES QUE NÃO POSSUEM NENHUM TELEFONE CADASTRADO? 
+		**************************************************
+		*/
+		
+		
 
 
 
