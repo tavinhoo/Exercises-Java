@@ -1376,4 +1376,74 @@ e ele vai converter o código para os bancos de dados a serem utilizados.
     . Produto Cartesiano
     . Junção(produto cartesiano + restrição de chaves correspondentes)
 
-    
+#AULA270
+
+- Organizando projeto para o CRUD com banco de dados utilizando o JDBC 
+(JAVA DATABASE CONNECTOR) 
+
+. Adicionar a biblioteca do jdbc na pasta raiz, ou adicionar lib.
+
+. Criar db.properties na pasta raiz do projeto.
+	. Inserir campos
+		- user:
+		- password:
+		- dburl: 
+		+useSSL: false (ainda não sei para que serve)
+
+- Classe DbException
+	O professor criou a classe DbException que estende RuntimeException para encapsular exceções específicas do banco de dados 
+	que podem ocorrer durante a execução do código. Isso é uma boa prática por várias razões:
+
+	Encapsulação de Exceções: Ao encapsular exceções específicas do banco de dados em uma classe personalizada como DbException, 
+	você torna o código mais legível e mais fácil de entender. Em vez de lidar com exceções genéricas ou específicas do JDBC em 
+	cada ponto onde ocorrem, você pode usar uma única classe para representar todas as exceções relacionadas ao banco de dados.
+
+	Abstração de Detalhes de Implementação: Usar uma classe personalizada para exceções relacionadas ao banco de dados ajuda a 
+	abstrair os detalhes de implementação do banco de dados do restante do código. Isso permite que você altere o provedor de banco 
+	de dados ou faça outras mudanças na camada de persistência sem precisar modificar o código em outros lugares.
+
+	Centralização de Tratamento de Exceções: Ao capturar exceções específicas do banco de dados em um único lugar (por exemplo, 
+	nos métodos de conexão da classe DB), você centraliza o tratamento de exceções relacionadas ao banco de dados. Isso facilita a
+	manutenção do código, pois você pode lidar com todas as exceções relacionadas ao banco de dados de maneira consistente em um único local.
+
+	Facilidade de Manutenção: Usar uma classe personalizada para exceções relacionadas ao banco de dados pode tornar a manutenção 
+	do código mais fácil no futuro. Se você precisar adicionar mais informações à mensagem de erro ou implementar tratamentos específicos 
+	para diferentes tipos de exceções, pode fazer isso facilmente na classe DbException.
+
+	Em resumo, encapsular exceções específicas do banco de dados em uma classe personalizada como DbException é uma prática 
+	recomendada porque torna o código mais legível, abstrai detalhes de implementação, centraliza o tratamento de exceções e facilita a manutenção do código no futuro.
+
+- Atributo Connection conn = null
+	. É o atributo objeto que encapsula a conexão.
+	. Dentro do método getConnection() o método verifica se existe uma conexão(conn != null) e se estiver vazio recebe uma nova conexão
+	a partir de conn = DriverManager.getConnection("urlBanco", "propsDeDb.properties")
+
+	-  public static Connection getConnection() {
+       try {
+           if(conn == null) {
+               Properties props = loadProperties();
+               String url = props.getProperty("dburl");
+               /* Classe que vai fazer conexão com o banco de dados */
+               conn = DriverManager.getConnection(url, props);
+           }
+           return conn;
+       } catch (SQLException e) {
+           throw new DbException(e.getMessage());
+       }
+    }
+
+
+- Atributo Properties props - o que ele significa? 
+	. É o objeto que encapsula as informações de db.properties.
+	. Ele é usado em GetConnection()
+	. Elaborado em loadProperties()
+	
+	- private static Properties loadProperties() {
+       try(FileInputStream fs = new FileInputStream(url)) {
+            Properties props = new Properties();
+            props.load(fs);
+            return props;
+       } catch(IOException e) {
+            throw new DbException(e.getMessage());
+       }
+    }
