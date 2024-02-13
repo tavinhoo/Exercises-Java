@@ -1,0 +1,60 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+# Arquivos de compilação Java
+*.class
+
+# Arquivos de configuração específicos do IDE (se estiver usando um)
+.idea/
+.vscode/
+
+# Arquivos de saída de compilação
+bin/
+target/
+
+# Arquivos de dependência do Maven (se estiver usando Maven)
+# Remova este se estiver usando Maven
+lib/
+
+# Arquivos de log (se houver)
+*.log
+
+# Arquivos de propriedades específicos do ambiente
+*.properties
+
+# Arquivos de backup
+*~
+
+# Arquivos de cache e temporários
+*.swp
+*.bak
+
+# Arquivo de propriedades do banco de dados
+db.properties
