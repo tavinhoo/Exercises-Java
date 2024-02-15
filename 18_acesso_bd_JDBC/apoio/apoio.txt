@@ -1447,3 +1447,12 @@ e ele vai converter o código para os bancos de dados a serem utilizados.
             throw new DbException(e.getMessage());
        }
     }
+
+#AULA270
+
+	- DEMO: RECUPERANDO DADOS
+
+		- Statement
+	
+
+		- ResultSet
