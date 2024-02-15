@@ -1453,6 +1453,92 @@ e ele vai converter o código para os bancos de dados a serem utilizados.
 	- DEMO: RECUPERANDO DADOS
 
 		- Statement
-	
+
+			O Statement é uma interface fornecida pelo Java que nos permite executar instruções SQL em um banco de dados.
+			Com um Statement, podemos executar operações como inserir dados, atualizar registros, excluir dados ou até 
+			mesmo consultar informações do banco de dados.
+			Para criar um Statement, geralmente o obtemos a partir de uma conexão com o banco de dados usando o método createStatement().
+
+			Connection conn = DriverManager.getConnection(url, username, password);
+			Statement statement = conn.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM tabela");
+
+			while (resultSet.next()) {
+				// Processa os resultados
+			}
+
+			resultSet.close();
+			statement.close();
+			conn.close();
 
 		- ResultSet
+
+			O ResultSet é uma interface que representa o conjunto de resultados de uma consulta SQL.
+			Quando executamos uma consulta usando um Statement, obtemos um ResultSet que contém os resultados da consulta.
+			O ResultSet nos permite iterar sobre os resultados e acessar os dados de cada linha.
+			Podemos usar métodos como next(), getString(), getInt(), etc., para percorrer os resultados 
+			e obter os valores de cada coluna.
+
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM tabela");
+
+			while (resultSet.next()) {
+				String coluna1 = resultSet.getString("nome_da_coluna1");
+				int coluna2 = resultSet.getInt("nome_da_coluna2");
+				// Processa os valores das colunas
+			}
+
+			resultSet.close();
+
+
+		-> Em suma, o Statement é uma interface "criada" a partir de uma conexão que permite a execuçao de queries 
+		a partir da conexão com o DB, já o ResultSet é o resultado de uma execução a partir de um Statement
+
+			conn = DB.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery("SELECT * FROM DEPARTMENT");
+
+
+
+			====== >>>>>>>>>. E como se usa o resultado do resultSet? 
+
+			while(rs.next()) {
+                System.out.println(rs.getInt("ID") + ", " + rs.getString("NAME"));
+            }
+
+
+
+			. Statement e Resultset ão recursos que devem ser usados e fechados(close) pois estão fora do controle da JVM
+			são recursos externos.
+
+			No entanto, são sujeitos a erros quando instanciados e fechados.
+			No programa exemplo foram criados os métodos auxiliares para que fosse evitado 
+			a repetição de try catch no escopo principal que já fica dentro de um try catch
+
+			/* ABAIXO OS MÉTODOS AUXILIARES PARA EVITAR TRY CATCH NO PROGRAMA MAIN*/
+
+			public static void closeStatement(Statement st) {
+			if(st != null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					throw new DbException(e.getMessage());
+				}
+			}
+			}
+
+			public static void closeResultSet(ResultSet rs) {
+				if(rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						throw new DbException(e.getMessage());
+					}
+				}
+			}
+
+			-> [[[[[CHATGPT]]]]]
+				Resumindo, o Statement nos permite executar consultas SQL no banco de dados, enquanto o ResultSet nos permite 
+				iterar sobre os resultados dessas consultas e obter os dados de cada linha retornada. Esses dois componentes 
+				são fundamentais ao trabalhar com JDBC para interagir com bancos de dados em Java.
+
+#AULA271
