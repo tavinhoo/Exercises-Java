@@ -1,0 +1,174 @@
+-----------------------------------------
+AULA 156 - HERANÇA
+
+. É um tipo de associação que permite que uma classe herde TODOS os dados e comportamentos de outra.
+
+. Definições importantes
+
+. Vantagens 
+	. Reuso
+	. Polimorfismo
+
+. Sintaxe 
+	. class A extends B
+
+# Exemplo prático
+- Suponha um negócio de banco que possui uma conta comum e uma conta para empresas, sendo que a conta para empresas possui todos membros da conta comum, 
+mais um limite de empréstimo e uma operação de realizar empréstimo.
+
+Account 
+- number: Integer
+- holder: String
+- balance: Double
+
++ withdraw(amount: Double) : void
++ deposit(amount: Double) : void
+
+BusinessAccount
+- number: Integer
+- holder: String
+- balance: Double
+- loanLimit: Double
+
++ withdraw(amount: Double) : void
++ deposit(amount: Double) : void
++ loan(amount: Double) : void
+
+@ Na aula Nelio volta a comentar sobre os modificadores de acesso, especificamente o protected, ele garante que o atributo seja acessado em ex:
+
+package p1: class A {}
+
+- Differente class but same package[x];
+- Different package but subclass[x];
+
+quando se tenta realizar a seguinte operação em BusinessAccount -> balance += amount - 10;
+
+usando private na classe account, isso é impossível, pois private limita o atributo somente a propria classe;
+
+
+Definições importantes:
+
+. Relação "é-um"
+. Generalização/especialização
+. Superclasse (class base) / subclasse (classe derivada)
+. Herança / extensão
+. Herança é uma associação entre classes(e não entre objetos)
+-----------------------------------------
+aula 157 - Upcasting e Downcasting
+
+- Upcasting 
+	. Casting da subclasse para superclasse;
+	. Uso comum: polimorfismo;
+
+R: Armazenar em uma variável Account, um objeto BusinessAccount;
+
+- Downcasting 
+	. Casting da superclasse para subclasse;
+	. Palavra instanceof;
+	. Uso comum: métodos que recebem parâmetros genéricos(ex: equals);
+
+R: Armazenar em uma variável BusinessAccount um objeto Account;
+-----------------------------------------
+AULA 158 - SOBREPOSIÇÃO, PALAVRA SUPER, ANOTAÇÃO @Override
+
+- Sobreposição ou sobrescrita 
+
+	. É a implementação de um método de uma superclasse na subclasse;
+
+. É fortemente recomendável usar a anotação @Overridew em um método sobrescrito
+	. Facilita a leitura e compreensão do código.
+	. Avisamos ao compilador (boa prática)
+
+. Suponha que a operação de saque possui uma taxa no valor de 5.0. Entretanto, se a conta for do tipo poupança, esta taxa nao deve ser cobrada.
+
+Como resolver isso?
+
+Resposta: sobrescrevendo o método withdraw na subclasse SavingsAccount
+ 
+
+- Palavra Super
+
+. É possível chamar a implementação da superclasse usando a palavra super.
+
+Exemplo: suponha que, na classe BusinessAccount, a regra para saque seja realizar o saque normalmente da superclasse e descontar mais 2.0;
+
+@Override 
+public void withdraw(double amount) {
+	super.withdraw(amount);
+	balance -= 2.0;
+}
+-----------------------------------------
+AULA 159 - Classes e métodos final
+
+. Palavra chave: final
+. Classe: evita que a classe seja herdada
+
+	public final class SavingsAccount {
+	
+	}
+
+. Método: evita que o método sob seja sobreposto;
+
+Exemplo - Classe final
+
+Suponha que você queira evitar que sejam criadas subclasses de SavingsAccount
+
+public final class SavingsAccount
+
+Exemplo - método final
+
+Suponha que você não queira que o métod Withdraw de SavingsAccount seja sobreposto;
+
+@Override
+public final void withdraw(double amount) {
+	Balance -= amount;
+}
+
+Pra quê? 
+
+. Segurança: dependendo das regras do negócio, às vezes é desejável garantir que uma classe não seja herdada, ou que um método não seja sobreposto;
+
+	. Geralmente convém acrescentar final em métodos sobrepostos, pois sobreposições múltiplas podem ser uma porta de entrada para inconsistências;
+
+. Performance: atributos de tipo de uma classe final são analisados de uma forma mais rápida em tempo de execução
+	Exemplo clássico: String;
+-----------------------------------------
+AULA 160 - Introdução ao Polimorfismo
+
+Pilares da OOP
+
+-Encapsulamento
+-Herança
+-Polimorfismo
+
+POLI - MUITOS
+MORFISMO - FORMAS
+
+- Em programação Orientada a Objetos, polimorfismo é o recurso que permite que variáveis de um mesmo tipo mais genérico possam apontar para objetos de tipos específicos diferentes, tendo assim comportamentos diferentes conforme cada tipo específico.
+
+Account x = new Account();
+Account y = new SavingsAccount();
+
+(variáveis do mesmo tipo, comportando-se de formas diferentes);
+
+- Importante entender:
+
+Associação do tipo específico com o tipo genérico é feita em tempo de execução(upcasting)
+
+O compilador não sabe para qual tipo específico a chamada do método Withdraw está sendo feita(ele só sabe que são duas variáveis do tipo Account);
+-----------------------------------------
+AULA 164 - MÉTODOS ABSTRATOS
+
+- São métodos que não possuem implementação;
+- Métodos precisam ser abstratos quanod a classe é genérica demais para conter sua implementação;
+- Se uma classe possuir pelo menos um método abstrato, então esta classe também é abstrata;
+
+- Notação UML: itálico
+
+
+
+
+
+
+
+
